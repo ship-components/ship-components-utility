@@ -26,7 +26,11 @@ export function slugify(str) {
   if (typeof str !== 'string') {
     return str;
   }
-  return str.trim().toLowerCase().replace(/\s|\/|\\|\!|\'|\"|\&/g, '-').replace('--', '-');
+  return str
+    .trim()
+    .toLowerCase()
+    .replace(/\s|\/|\\|\!|\'|\"|\&/g, '-')
+    .replace('--', '-');
 }
 
 /**

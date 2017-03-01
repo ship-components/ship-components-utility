@@ -10,7 +10,7 @@
  * Check to see if a string starts with a '-'
  * @type    {RegExp}
  */
-var directionRegex = /^\-.*/;
+const directionRegex = /^\-.*/;
 
 /**
  * Compare two dates
@@ -20,8 +20,8 @@ var directionRegex = /^\-.*/;
  * @return    {Number}
  */
 function compareDates(a, b) {
-  var aTest = a instanceof Date ? a : new Date(a);
-  var bTest = b instanceof Date ? b : new Date(b);
+  let aTest = a instanceof Date ? a : new Date(a);
+  let bTest = b instanceof Date ? b : new Date(b);
   return aTest - bTest;
 }
 
@@ -33,7 +33,7 @@ function compareDates(a, b) {
  * @return    {Function}
  */
 function sortBy() {
-  var props = Array.prototype.slice.call(arguments);
+  let props = Array.prototype.slice.call(arguments);
 
   /**
    * Comparator
@@ -42,21 +42,24 @@ function sortBy() {
    * @param     {Object}    b
    * @return    {Number}
    */
+  // Disable the eslint warning on function complexity
+  // TO DO: Improve the anonymus function performance
+  // eslint-disable-next-line
   return function(a, b) {
     // Loop through each prop we want to sort by
-    var index = -1;
+    let index = -1;
     while (++index < props.length) {
       // Determine if we sort asc or desc
-      var direction = directionRegex.test(props[index]) ? -1 : 1;
+      let direction = directionRegex.test(props[index]) ? -1 : 1;
 
       // Trim the prop since the object key can't have spaces in it
-      var prop = props[index].trim().replace(/^\-/, '');
+      let prop = props[index].trim().replace(/^\-/, '');
 
-      var keys = prop.split('.');
+      let keys = prop.split('.');
 
       // Sort by sub properties
       if (keys.length > 1) {
-        for (var i = 0; i < (keys.length - 1); i++) {
+        for (let i = 0; i < (keys.length - 1); i++) {
           a = a[keys[i]];
           b = b[keys[i]];
         }
@@ -89,7 +92,7 @@ function sortBy() {
  * @return    {Function}
  */
 function sortByDates() {
-  var props = Array.prototype.slice.call(arguments);
+  let props = Array.prototype.slice.call(arguments);
 
   /**
    * Comparator
@@ -100,13 +103,13 @@ function sortByDates() {
    */
   return function(a, b) {
     // Loop through each prop we want to sort by
-    var index = -1;
+    let index = -1;
     while (++index < props.length) {
       // Determine if we sort asc or desc
-      var direction = directionRegex.test(props[index]) ? -1 : 1;
+      let direction = directionRegex.test(props[index]) ? -1 : 1;
 
       // Trim the prop since the object key can't have spaces in it
-      var prop = props[index].trim().replace(/^\-/, '');
+      let prop = props[index].trim().replace(/^\-/, '');
 
       return compareDates(a[prop], b[prop]) * direction;
     }
