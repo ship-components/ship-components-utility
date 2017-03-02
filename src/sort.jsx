@@ -19,7 +19,7 @@ const directionRegex = /^\-.*/;
  * @param     {Date}    b
  * @return    {Number}
  */
-function compareDates(a, b) {
+export function compareDates(a, b) {
   let aTest = a instanceof Date ? a : new Date(a);
   let bTest = b instanceof Date ? b : new Date(b);
   return aTest - bTest;
@@ -32,7 +32,7 @@ function compareDates(a, b) {
  * @param     {String...}    prop
  * @return    {Function}
  */
-function sortBy() {
+export function sortBy() {
   let props = Array.prototype.slice.call(arguments);
 
   /**
@@ -91,7 +91,7 @@ function sortBy() {
  * @param     {String...}    prop
  * @return    {Function}
  */
-function sortByDates() {
+export function sortByDates() {
   let props = Array.prototype.slice.call(arguments);
 
   /**
@@ -117,9 +117,3 @@ function sortByDates() {
     return 0;
   };
 }
-
-module.exports.by = sortBy;
-module.exports.dates = sortByDates;
-
-// Legacy
-module.exports.alphaBy = sortBy;
