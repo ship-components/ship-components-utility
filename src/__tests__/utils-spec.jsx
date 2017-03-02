@@ -1,6 +1,26 @@
 /* eslint-disable */
 
 describe('Utils Library', () => {
+  describe('objectSize Method', () => {
+    const {objectSize} = require('../utils');
+
+    test('should return true when correct object size calculated', () => {
+      let obj = {
+        1: '1',
+        2: '2',
+        3: '3',
+        4: '4',
+        5: '5',
+        6: '6'
+      }
+
+      let result = objectSize(obj);
+
+      expect(typeof result).toEqual('number');
+      expect(result).toEqual(6);
+    });
+  });
+
   describe('Data Type Checking', () => {
     const {isObject, isFunction, isString, isArray, isUndefined} = require('../utils');
     let testObject;
