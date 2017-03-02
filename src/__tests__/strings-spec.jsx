@@ -159,5 +159,4 @@ describe('Strings Library', () => {
       expect(result).toEqual('this is a text fortesting');
     });
   });
-
 });
