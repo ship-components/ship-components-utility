@@ -58,16 +58,6 @@ export function camelCase(str) {
 }
 
 /**
- * Generates a short random String
- * @param  {Number} len
- * @return {String}
- */
-export function generateRandomString(len) {
-  len = len || 7;
-  return (Math.random() * Math.pow(36,len)).toString(36).split('.')[0];
-}
-
-/**
  * Convert camel case to underscore case
  * @param  {String} str
  * @return {String}
@@ -79,6 +69,16 @@ export function toUnderscoreCase(str) {
   return str.replace(/(?:^[a-z]|\.?[a-z])([A-Z])/g, function(m, l){
     return m.replace(l, '_' + l);
   }).toUpperCase();
+}
+
+/**
+ * Generates a short random String
+ * @param  {Number} len
+ * @return {String}
+ */
+export function generateRandomString(len) {
+  len = len || 7;
+  return (Math.random() * Math.pow(36,len)).toString(36).split('.')[0];
 }
 
 /**
