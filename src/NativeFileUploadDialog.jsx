@@ -16,7 +16,7 @@ export default class NativeFileUploadDialog {
     this.isEdge = isIEBrowser('edge');
     // onChange event listener
     // Based on browser type
-    if(this.isIE10) {
+    if(this.isIE10 && this.input.attachEvent) {
       // IE 10
       this.input.attachEvent('onchange', this.onChange.bind(this), false);
     } else {
