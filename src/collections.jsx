@@ -40,7 +40,7 @@ export function size(val) {
   }
 }
 
-function searchFn(val) {
+export function searchFn(val) {
   if(is.func(val)) {
     return val;
   } else if (is.obj(val)) {
