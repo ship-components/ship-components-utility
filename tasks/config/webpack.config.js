@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
@@ -12,22 +11,17 @@ module.exports = {
     libraryTarget: 'umd'
   },
 
-  externals: {
-    'classnames': true,
-    'react': 'React'
-  },
-
   module: {
     loaders: [
-      // ES6/JSX for App
+      // ES6
       {
-        test: /\.(jsx?|es6)$/,
+        test: /\.(js|es6)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
       // Ensure 'use strict' is everywhere
       {
-        test: /\.(jsx?|es6)$/,
+        test: /\.(js|es6)$/,
         exclude: /node_modules/,
         loader: 'strict-loader'
       }
@@ -42,7 +36,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx', '.es6']
+    extensions: ['.js', '.es6']
   },
 
   devtool: 'source-map'

@@ -85,163 +85,222 @@ return /******/ (function(modules) { // webpackBootstrap
 
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.objectSize = objectSize;
+exports.isObject = isObject;
+exports.isFunction = isFunction;
+exports.isString = isString;
+exports.isArray = isArray;
+exports.isUndefined = isUndefined;
+exports.bind = bind;
+exports.bindAll = bindAll;
+exports.unique = unique;
+exports.mergeDeep = mergeDeep;
+exports.isIEBrowser = isIEBrowser;
+exports.detectIEVersion = detectIEVersion;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var Immutable = __webpack_require__(8);
 
 /**
- * List of utilites to use across the app
- * @param     {params}
- * @return    {Stribg}  Result
+ * Returns the size of an Object
+ * @param     {Object}    obj
+ * @return    {Number}    size
  */
-var utils = {
-  // Checks if value is the language type of Object
-  // will skip values === null
-  isObject: function isObject(prop) {
-    return prop !== null && (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) === 'object';
-  },
-
-  // Checks if value is classified as a Function object
-  isFunction: function isFunction(prop) {
-    return typeof prop === 'function';
-  },
-
-  // Checks if value is classified as a String primitive or object
-  isString: function isString(prop) {
-    return typeof prop === 'string';
-  },
-
-  // Checks if value is classified as an Array object
-  isArray: function isArray(prop) {
-    return Array.isArray(prop);
-  },
-
-  // Checks if value is undefined
-  isUndefined: function isUndefined(prop) {
-    return typeof prop === 'undefined';
-  },
-
-  // Binds methods of an object to the object itself, overwriting the existing method.
-  // Method names may be specified as individual arguments or as arrays of method names
-  bindAll: function bindAll(obj) {
-    var result = obj;
-
-    for (var prop in result) {
-      if (result.hasOwnProperty(prop) && typeof result[prop] === 'function') {
-        result[prop] = result[prop].bind(result);
-      }
+function objectSize(obj) {
+  var size = 0,
+      key = void 0;
+  for (key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      size++;
     }
-    return result;
-  },
-
-  // Creates a duplicate-free version of an array
-  unique: function unique(val) {
-    return new Immutable.Set(val);
-  },
-
-  /**
-   * Detect IE browser
-   * @param  {String} prop
-   * @return {Bool}
-   */
-  isIEBrowser: function isIEBrowser(prop) {
-    switch (prop) {
-      case 'ie10':
-        return navigator.appVersion.indexOf('MSIE 10') !== -1 && navigator.appVersion.indexOf('Trident') === -1;
-      case 'ie11':
-        return navigator.appVersion.indexOf('Trident') !== -1 && navigator.appVersion.indexOf('MSIE 10') === -1;
-      case 'edge':
-        return navigator.appVersion.indexOf('Edge') !== -1;
-      // IE10 || IE11
-      default:
-        return navigator.appVersion.indexOf('Trident') !== -1 || navigator.appVersion.indexOf('MSIE 10') !== -1;
-    }
-  },
-
-
-  /**
-   * Detect IE browser
-   * @return {String}
-   */
-  detectIE: function detectIE() {
-    var ua = window.navigator.userAgent;
-
-    // Test values; Uncomment to check result …
-
-    // IE 10
-    // ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
-
-    // IE 11
-    // ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
-
-    // Edge 12 (Spartan)
-    // ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
-
-    // Edge 13
-    // ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
-
-    var msie = ua.indexOf('MSIE ');
-    if (msie > 0) {
-      // IE 10 or older => return version number
-      return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
-    }
-
-    var trident = ua.indexOf('Trident/');
-    if (trident > 0) {
-      // IE 11 => return version number
-      var rv = ua.indexOf('rv:');
-      return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
-    }
-
-    var edge = ua.indexOf('Edge/');
-    if (edge > 0) {
-      // Edge (IE 12+) => return version number
-      return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-    }
-
-    // other browser
-    return false;
-  },
-
-
-  /**
-   * Bind to itself
-   * @param     {args...}
-   * @return    {Undefined}
-   * @example   bind(this, 'handleClick', 'handleSubmit');
-   */
-  bind: function bind() {
-    var args = Array.prototype.slice.call(arguments);
-    var ctx = args.splice(0, 1)[0];
-    for (var i = 0; i < args.length; i++) {
-      ctx[args[i]] = ctx[args[i]].bind(ctx);
-    }
-  },
-
-
-  // This method is like _.assign except that it recursively merges own
-  // and inherited enumerable string keyed properties of source objects
-  // into the destination object
-  mergeDeep: function mergeDeep(target, source) {
-    if (this.isObject(target) && this.isObject(source)) {
-      for (var key in source) {
-        if (this.isObject(source[key])) {
-          if (!target[key]) {
-            Object.assign(target, _defineProperty({}, key, {}));
-          }
-          this.mergeDeep(target[key], source[key]);
-        } else {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
   }
-};
 
-module.exports = utils;
+  return size;
+}
+
+/**
+ * Checks if value is the language type of Object
+ * will skip values === null
+ * @param     {Mixed}    prop
+ * @return    {Bool}
+ */
+function isObject(prop) {
+  // Weird behaviour with spec in Javascript, the typeof Array is Object
+  return prop !== null && !Array.isArray(prop) && (typeof prop === 'undefined' ? 'undefined' : _typeof(prop)) === 'object';
+}
+
+/**
+ * Checks if value is classified as a Function object
+ * @param     {Mixed}    prop
+ * @return    {Bool}
+ */
+function isFunction(prop) {
+  return typeof prop === 'function';
+}
+
+/**
+ * Checks if value is classified as a String primitive or object
+ * @param     {Mixed}    prop
+ * @return    {Bool}
+ */
+function isString(prop) {
+  return typeof prop === 'string';
+}
+
+/**
+ * Checks if value is classified as an Array object
+ * @param     {Mixed}    prop
+ * @return    {Bool}
+ */
+function isArray(prop) {
+  return Array.isArray(prop);
+}
+
+/**
+ * Checks if value is undefined
+ * @param     {Mixed}    prop
+ * @return    {Bool}
+ */
+function isUndefined(prop) {
+  return typeof prop === 'undefined';
+}
+
+/**
+ * Bind to itself
+ * @param     {args...}
+ * @return    {Undefined}
+ * @example   bind(this, 'handleClick', 'handleSubmit');
+ */
+function bind() {
+  var args = Array.prototype.slice.call(arguments);
+  var ctx = args.splice(0, 1)[0];
+  for (var i = 0; i < args.length; i++) {
+    ctx[args[i]] = ctx[args[i]].bind(ctx);
+  }
+}
+
+/**
+ * Binds methods of an object to the object itself,
+ * overwriting the existing method.
+ * Method names may be specified as individual arguments
+ * or as arrays of method names
+ * @param     {Object}  obj
+ * @return    {Object}  result
+ */
+function bindAll(obj) {
+  var result = obj;
+
+  for (var prop in result) {
+    if (result.hasOwnProperty(prop) && typeof result[prop] === 'function') {
+      result[prop] = result[prop].bind(result);
+    }
+  }
+  return result;
+}
+
+/**
+ * Creates a duplicate-free version of an array
+ * @param     {Array}         val
+ * @return    {Immutable.Set}
+ */
+function unique(val) {
+  return new Immutable.Set(val);
+}
+
+/**
+ * This method is like _.assign except that it
+ * recursively merges own and inherited enumerable
+ * string keyed properties of source objects into the
+ * destination object
+ * @param     {Object}      target
+ * @param     {Object}      source
+ * @return    {Object}      target
+ */
+function mergeDeep(target, source) {
+  if (isObject(target) && isObject(source)) {
+    for (var key in source) {
+      if (isObject(source[key])) {
+        if (!target[key]) {
+          Object.assign(target, _defineProperty({}, key, {}));
+        }
+        mergeDeep(target[key], source[key]);
+      } else {
+        target[key] = source[key];
+      }
+    }
+  }
+  return target;
+}
+
+/**
+ * Detect IE browser
+ * @param  {String} prop
+ * @return {Bool}
+ */
+function isIEBrowser(prop) {
+  switch (prop) {
+    case 'ie10':
+      return navigator.appVersion.indexOf('MSIE 10') !== -1 && navigator.appVersion.indexOf('Trident') === -1;
+    case 'ie11':
+      return navigator.appVersion.indexOf('Trident') !== -1 && navigator.appVersion.indexOf('MSIE 10') === -1;
+    case 'edge':
+      return navigator.appVersion.indexOf('Edge') !== -1;
+    // IE10 || IE11
+    default:
+      return navigator.appVersion.indexOf('Trident') !== -1 || navigator.appVersion.indexOf('MSIE 10') !== -1;
+  }
+}
+
+/**
+ * Detect IE browser version
+ * @return {String}
+ */
+function detectIEVersion() {
+  var ua = window ? window.navigator.userAgent : navigator.userAgent;
+
+  // Test values; Uncomment to check result …
+
+  // IE 10
+  // ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
+
+  // IE 11
+  // ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
+
+  // Edge 12 (Spartan)
+  // ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
+
+  // Edge 13
+  // ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
+
+  var msie = ua.indexOf('MSIE ');
+  if (msie > 0) {
+    // IE 10 or older => return version number
+    return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+  }
+
+  var trident = ua.indexOf('Trident/');
+  if (trident > 0) {
+    // IE 11 => return version number
+    var rv = ua.indexOf('rv:');
+    return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+  }
+
+  var edge = ua.indexOf('Edge/');
+  if (edge > 0) {
+    // Edge (IE 12+) => return version number
+    return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+  }
+
+  // other browser
+  return false;
+}
 
 /***/ }),
 /* 1 */
@@ -250,135 +309,146 @@ module.exports = utils;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(module) {
 
-// Gets or setups up KeyEvent
+/**
+ * List of key events
+ * @param  {String} prop
+ * @return {Number}
+ */
 
-// Lib
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.KeyEvents = KeyEvents;
 
-var utils = __webpack_require__(0);
+var _require = __webpack_require__(0),
+    isUndefined = _require.isUndefined;
 
-// Browser detection
-var KeyEvent = !module ? window.KeyEvent : void 0;
+function KeyEvents(prop) {
+    // Browser detection
+    var KeyEvent = !module ? window.KeyEvent : void 0;
 
-if (utils.isUndefined(KeyEvent)) {
-  KeyEvent = {
-    DOM_VK_CANCEL: 3,
-    DOM_VK_HELP: 6,
-    DOM_VK_BACK_SPACE: 8,
-    DOM_VK_TAB: 9,
-    DOM_VK_CLEAR: 12,
-    DOM_VK_RETURN: 13,
-    DOM_VK_ENTER: 14,
-    DOM_VK_SHIFT: 16,
-    DOM_VK_CONTROL: 17,
-    DOM_VK_ALT: 18,
-    DOM_VK_PAUSE: 19,
-    DOM_VK_CAPS_LOCK: 20,
-    DOM_VK_ESCAPE: 27,
-    DOM_VK_SPACE: 32,
-    DOM_VK_PAGE_UP: 33,
-    DOM_VK_PAGE_DOWN: 34,
-    DOM_VK_END: 35,
-    DOM_VK_HOME: 36,
-    DOM_VK_LEFT: 37,
-    DOM_VK_UP: 38,
-    DOM_VK_RIGHT: 39,
-    DOM_VK_DOWN: 40,
-    DOM_VK_PRINTSCREEN: 44,
-    DOM_VK_INSERT: 45,
-    DOM_VK_DELETE: 46,
-    DOM_VK_0: 48,
-    DOM_VK_1: 49,
-    DOM_VK_2: 50,
-    DOM_VK_3: 51,
-    DOM_VK_4: 52,
-    DOM_VK_5: 53,
-    DOM_VK_6: 54,
-    DOM_VK_7: 55,
-    DOM_VK_8: 56,
-    DOM_VK_9: 57,
-    DOM_VK_SEMICOLON: 59,
-    DOM_VK_EQUALS: 61,
-    DOM_VK_A: 65,
-    DOM_VK_B: 66,
-    DOM_VK_C: 67,
-    DOM_VK_D: 68,
-    DOM_VK_E: 69,
-    DOM_VK_F: 70,
-    DOM_VK_G: 71,
-    DOM_VK_H: 72,
-    DOM_VK_I: 73,
-    DOM_VK_J: 74,
-    DOM_VK_K: 75,
-    DOM_VK_L: 76,
-    DOM_VK_M: 77,
-    DOM_VK_N: 78,
-    DOM_VK_O: 79,
-    DOM_VK_P: 80,
-    DOM_VK_Q: 81,
-    DOM_VK_R: 82,
-    DOM_VK_S: 83,
-    DOM_VK_T: 84,
-    DOM_VK_U: 85,
-    DOM_VK_V: 86,
-    DOM_VK_W: 87,
-    DOM_VK_X: 88,
-    DOM_VK_Y: 89,
-    DOM_VK_Z: 90,
-    DOM_VK_CONTEXT_MENU: 93,
-    DOM_VK_NUMPAD0: 96,
-    DOM_VK_NUMPAD1: 97,
-    DOM_VK_NUMPAD2: 98,
-    DOM_VK_NUMPAD3: 99,
-    DOM_VK_NUMPAD4: 100,
-    DOM_VK_NUMPAD5: 101,
-    DOM_VK_NUMPAD6: 102,
-    DOM_VK_NUMPAD7: 103,
-    DOM_VK_NUMPAD8: 104,
-    DOM_VK_NUMPAD9: 105,
-    DOM_VK_MULTIPLY: 106,
-    DOM_VK_ADD: 107,
-    DOM_VK_SEPARATOR: 108,
-    DOM_VK_SUBTRACT: 109,
-    DOM_VK_DECIMAL: 110,
-    DOM_VK_DIVIDE: 111,
-    DOM_VK_F1: 112,
-    DOM_VK_F2: 113,
-    DOM_VK_F3: 114,
-    DOM_VK_F4: 115,
-    DOM_VK_F5: 116,
-    DOM_VK_F6: 117,
-    DOM_VK_F7: 118,
-    DOM_VK_F8: 119,
-    DOM_VK_F9: 120,
-    DOM_VK_F10: 121,
-    DOM_VK_F11: 122,
-    DOM_VK_F12: 123,
-    DOM_VK_F13: 124,
-    DOM_VK_F14: 125,
-    DOM_VK_F15: 126,
-    DOM_VK_F16: 127,
-    DOM_VK_F17: 128,
-    DOM_VK_F18: 129,
-    DOM_VK_F19: 130,
-    DOM_VK_F20: 131,
-    DOM_VK_F21: 132,
-    DOM_VK_F22: 133,
-    DOM_VK_F23: 134,
-    DOM_VK_F24: 135,
-    DOM_VK_NUM_LOCK: 144,
-    DOM_VK_SCROLL_LOCK: 145,
-    DOM_VK_COMMA: 188,
-    DOM_VK_PERIOD: 190,
-    DOM_VK_SLASH: 191,
-    DOM_VK_BACK_QUOTE: 192,
-    DOM_VK_OPEN_BRACKET: 219,
-    DOM_VK_BACK_SLASH: 220,
-    DOM_VK_CLOSE_BRACKET: 221,
-    DOM_VK_QUOTE: 222,
-    DOM_VK_META: 224
-  };
+    if (isUndefined(KeyEvent)) {
+        KeyEvent = {
+            DOM_VK_CANCEL: 3,
+            DOM_VK_HELP: 6,
+            DOM_VK_BACK_SPACE: 8,
+            DOM_VK_TAB: 9,
+            DOM_VK_CLEAR: 12,
+            DOM_VK_RETURN: 13,
+            DOM_VK_ENTER: 14,
+            DOM_VK_SHIFT: 16,
+            DOM_VK_CONTROL: 17,
+            DOM_VK_ALT: 18,
+            DOM_VK_PAUSE: 19,
+            DOM_VK_CAPS_LOCK: 20,
+            DOM_VK_ESCAPE: 27,
+            DOM_VK_SPACE: 32,
+            DOM_VK_PAGE_UP: 33,
+            DOM_VK_PAGE_DOWN: 34,
+            DOM_VK_END: 35,
+            DOM_VK_HOME: 36,
+            DOM_VK_LEFT: 37,
+            DOM_VK_UP: 38,
+            DOM_VK_RIGHT: 39,
+            DOM_VK_DOWN: 40,
+            DOM_VK_PRINTSCREEN: 44,
+            DOM_VK_INSERT: 45,
+            DOM_VK_DELETE: 46,
+            DOM_VK_0: 48,
+            DOM_VK_1: 49,
+            DOM_VK_2: 50,
+            DOM_VK_3: 51,
+            DOM_VK_4: 52,
+            DOM_VK_5: 53,
+            DOM_VK_6: 54,
+            DOM_VK_7: 55,
+            DOM_VK_8: 56,
+            DOM_VK_9: 57,
+            DOM_VK_SEMICOLON: 59,
+            DOM_VK_EQUALS: 61,
+            DOM_VK_A: 65,
+            DOM_VK_B: 66,
+            DOM_VK_C: 67,
+            DOM_VK_D: 68,
+            DOM_VK_E: 69,
+            DOM_VK_F: 70,
+            DOM_VK_G: 71,
+            DOM_VK_H: 72,
+            DOM_VK_I: 73,
+            DOM_VK_J: 74,
+            DOM_VK_K: 75,
+            DOM_VK_L: 76,
+            DOM_VK_M: 77,
+            DOM_VK_N: 78,
+            DOM_VK_O: 79,
+            DOM_VK_P: 80,
+            DOM_VK_Q: 81,
+            DOM_VK_R: 82,
+            DOM_VK_S: 83,
+            DOM_VK_T: 84,
+            DOM_VK_U: 85,
+            DOM_VK_V: 86,
+            DOM_VK_W: 87,
+            DOM_VK_X: 88,
+            DOM_VK_Y: 89,
+            DOM_VK_Z: 90,
+            DOM_VK_CONTEXT_MENU: 93,
+            DOM_VK_NUMPAD0: 96,
+            DOM_VK_NUMPAD1: 97,
+            DOM_VK_NUMPAD2: 98,
+            DOM_VK_NUMPAD3: 99,
+            DOM_VK_NUMPAD4: 100,
+            DOM_VK_NUMPAD5: 101,
+            DOM_VK_NUMPAD6: 102,
+            DOM_VK_NUMPAD7: 103,
+            DOM_VK_NUMPAD8: 104,
+            DOM_VK_NUMPAD9: 105,
+            DOM_VK_MULTIPLY: 106,
+            DOM_VK_ADD: 107,
+            DOM_VK_SEPARATOR: 108,
+            DOM_VK_SUBTRACT: 109,
+            DOM_VK_DECIMAL: 110,
+            DOM_VK_DIVIDE: 111,
+            DOM_VK_F1: 112,
+            DOM_VK_F2: 113,
+            DOM_VK_F3: 114,
+            DOM_VK_F4: 115,
+            DOM_VK_F5: 116,
+            DOM_VK_F6: 117,
+            DOM_VK_F7: 118,
+            DOM_VK_F8: 119,
+            DOM_VK_F9: 120,
+            DOM_VK_F10: 121,
+            DOM_VK_F11: 122,
+            DOM_VK_F12: 123,
+            DOM_VK_F13: 124,
+            DOM_VK_F14: 125,
+            DOM_VK_F15: 126,
+            DOM_VK_F16: 127,
+            DOM_VK_F17: 128,
+            DOM_VK_F18: 129,
+            DOM_VK_F19: 130,
+            DOM_VK_F20: 131,
+            DOM_VK_F21: 132,
+            DOM_VK_F22: 133,
+            DOM_VK_F23: 134,
+            DOM_VK_F24: 135,
+            DOM_VK_NUM_LOCK: 144,
+            DOM_VK_SCROLL_LOCK: 145,
+            DOM_VK_COMMA: 188,
+            DOM_VK_PERIOD: 190,
+            DOM_VK_SLASH: 191,
+            DOM_VK_BACK_QUOTE: 192,
+            DOM_VK_OPEN_BRACKET: 219,
+            DOM_VK_BACK_SLASH: 220,
+            DOM_VK_CLOSE_BRACKET: 221,
+            DOM_VK_QUOTE: 222,
+            DOM_VK_META: 224
+        };
+    }
+
+    return prop ? KeyEvent[prop] : KeyEvent;
 }
-module.exports = KeyEvent;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)(module)))
 
 /***/ }),
@@ -399,6 +469,12 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var _require = __webpack_require__(0),
     isIEBrowser = _require.isIEBrowser;
 
+/**
+ * File upload dialog
+ * @constructor param {String} type
+ */
+
+
 var NativeFileUploadDialog = function () {
   function NativeFileUploadDialog(type) {
     _classCallCheck(this, NativeFileUploadDialog);
@@ -416,7 +492,7 @@ var NativeFileUploadDialog = function () {
     this.isEdge = isIEBrowser('edge');
     // onChange event listener
     // Based on browser type
-    if (this.isIE10) {
+    if (this.isIE10 && this.input.attachEvent) {
       // IE 10
       this.input.attachEvent('onchange', this.onChange.bind(this), false);
     } else {
@@ -526,6 +602,7 @@ exports.keys = keys;
 exports.toArray = toArray;
 exports.each = each;
 exports.size = size;
+exports.searchFn = searchFn;
 exports.any = any;
 exports.find = find;
 exports.findIndex = findIndex;
@@ -539,6 +616,11 @@ var is = _interopRequireWildcard(_is);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+/**
+ * Returns the Objects keys
+ * @param  {Object} obj
+ * @return {Array}  result
+ */
 function keys(obj) {
   var result = [];
   for (var key in obj) {
@@ -549,6 +631,11 @@ function keys(obj) {
   return result;
 }
 
+/**
+ * Converts an Object to an Array
+ * @param  {Object} val
+ * @return {Array}  result
+ */
 function toArray(val) {
   if (is.not.obj(val)) {
     return val;
@@ -559,6 +646,12 @@ function toArray(val) {
   });
 }
 
+/**
+ * Iterate through each Object keys
+ * And binds a callback to each keys
+ * @param  {Object} val
+ * @param  {func}   fn
+ */
 function each(val, fn) {
   if (is.obj(val)) {
     val = toArray(val);
@@ -571,6 +664,11 @@ function each(val, fn) {
   }
 }
 
+/**
+ * Returns the size of an object or array
+ * @param  {Object || Array} val
+ * @return {Number}
+ */
 function size(val) {
   if (is.obj(val)) {
     return keys(val).length;
@@ -581,6 +679,11 @@ function size(val) {
   }
 }
 
+/**
+ * Returns the function if available inside an object
+ * @param  {Object || Array || Func} val
+ * @return {mixed}
+ */
 function searchFn(val) {
   if (is.func(val)) {
     return val;
@@ -602,7 +705,18 @@ function searchFn(val) {
   }
 }
 
+/**
+ * Similar to Javscript .some() function
+ * @param  {Object || Array}  values
+ * @param  {Func}             compare
+ * @return {Bool}
+ */
 function any(values, compare) {
+  // If not array or object, return
+  if ((typeof values === 'undefined' ? 'undefined' : _typeof(values)) !== 'object') {
+    return false;
+  }
+
   if (is.obj(values)) {
     values = toArray(values);
   }
@@ -614,6 +728,13 @@ function any(values, compare) {
   return false;
 }
 
+/**
+ * Similar to  Underscore _.find() function
+ * @param  {Array}  arr
+ * @param  {Func}   compare
+ * @param  {Mixed}  ctx (default value) optional
+ * @return {Mixed}
+ */
 function find(arr, compare, ctx) {
   if (is.not.arr(arr)) {
     return arr;
@@ -627,6 +748,13 @@ function find(arr, compare, ctx) {
   return void 0;
 }
 
+/**
+ * Returns the index of an item in array if exisits, -1 otherwise
+ * @param  {Array}  arr
+ * @param  {Func}   compare
+ * @param  {Mixed}  ctx (default value) optional
+ * @return {Number} -1 if can't find it
+ */
 function findIndex(arr, compare, ctx) {
   if (is.not.arr(arr)) {
     return arr;
@@ -659,6 +787,13 @@ function getIn(path, obj, defaultValue) {
   return result;
 }
 
+/**
+ * Returns true if an object has the matched value,
+ * otherwise false
+ * @param  {Object}         obj
+ * @param  {Array<String>}  path
+ * @return {Mixed}
+ */
 function hasIn(obj, path) {
   return is.not.undef(getIn(obj, path));
 }
@@ -666,8 +801,8 @@ function hasIn(obj, path) {
 /**
  * First compres the size of two objects and then does a shallow
  * comparison of the two objects values
- * @param  {Object} one
- * @param  {Object} two
+ * @param  {Mixed} one
+ * @param  {Mixed} two
  * @return {Boolean}
  */
 function isEqual(a, b) {
@@ -706,14 +841,16 @@ function isEqual(a, b) {
 "use strict";
 
 
-// Breaks a URL into parts
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = parseUrl;
+exports.parseUrl = parseUrl;
 var urlPattern = new RegExp('^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?');
 
+/**
+ * Breaks a URL into parts
+ * @param {String} url
+ */
 function parseUrl(url) {
   var matches = url.match(urlPattern);
   if (matches) {
@@ -741,7 +878,7 @@ function parseUrl(url) {
  *
  * @author       Isaac Suttell <isaac_suttell@playstation.sony.com>
  * @file         Sorting functions to be user on front and backend
- * 
+ * @flow
  ******************************************************************************/
 
 /**
@@ -749,6 +886,12 @@ function parseUrl(url) {
  * @type    {RegExp}
  */
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.compareDates = compareDates;
+exports.sortBy = sortBy;
+exports.sortByDates = sortByDates;
 var directionRegex = /^\-.*/;
 
 /**
@@ -857,12 +1000,6 @@ function sortByDates() {
   };
 }
 
-module.exports.by = sortBy;
-module.exports.dates = sortByDates;
-
-// Legacy
-module.exports.alphaBy = sortBy;
-
 /***/ }),
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -885,8 +1022,8 @@ exports.slugify = slugify;
 exports.capitalize = capitalize;
 exports.titleCase = titleCase;
 exports.camelCase = camelCase;
-exports.generateRandomString = generateRandomString;
 exports.toUnderscoreCase = toUnderscoreCase;
+exports.generateRandomString = generateRandomString;
 exports.stringShortener = stringShortener;
 exports.stringIsValid = stringIsValid;
 exports.convertHTMLToString = convertHTMLToString;
@@ -931,24 +1068,24 @@ function capitalize(str) {
   });
 }
 
+/**
+ * Title case string
+ * @param     {String}    str
+ * @return    {String}
+ */
 function titleCase(str) {
   return str.split(/\s/g).map(function (word) {
     return capitalize(word, true);
   }).join(' ');
 }
 
+/**
+ * Convert to camelCase string
+ * @param     {String}    str
+ * @return    {String}
+ */
 function camelCase(str) {
   return str.charAt(0).toLowerCase() + titleCase(str).replace(/\s/g, '').substr(1);
-}
-
-/**
- * Generates a short random String
- * @param  {Number} len
- * @return {String}
- */
-function generateRandomString(len) {
-  len = len || 7;
-  return (Math.random() * Math.pow(36, len)).toString(36).split('.')[0];
 }
 
 /**
@@ -966,8 +1103,19 @@ function toUnderscoreCase(str) {
 }
 
 /**
+ * Generates a short random String
+ * @param  {Number} len
+ * @return {String}
+ */
+function generateRandomString(len) {
+  len = len || 7;
+  return (Math.random() * Math.pow(36, len)).toString(36).split('.')[0];
+}
+
+/**
  * Shorten string
  * @param     {String}    str
+ * @param     {Number}    charCount [default==100]
  * @return    {String}
  */
 function stringShortener(str) {
@@ -981,9 +1129,10 @@ function stringShortener(str) {
 }
 
 /**
- * Validate strings
+ * Validate strings (name, username or email)
  *
- * @param     {String, String}    str, prop
+ * @param     {String}    prop [default=email]
+ * @param     {String}    str
  * @return    {Bool}
  */
 function stringIsValid(prop, str) {
@@ -1011,10 +1160,10 @@ function stringIsValid(prop, str) {
 }
 
 /**
- * Validate strings
+ * Removes HTML tags from string
  *
- * @param     {String, String}    str, prop
- * @return    {Bool}
+ * @param     {String}    str
+ * @return    {String}
  */
 function convertHTMLToString(str) {
   if (typeof str !== 'string') {
