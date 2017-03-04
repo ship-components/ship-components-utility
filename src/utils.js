@@ -1,12 +1,11 @@
-/**
- * List of utilites to use across the app
- * @param     {params}
- * @return    {Stribg}  Result
- */
-
 'use strict';
 const Immutable = require('immutable');
 
+/**
+ * Returns the size of an Object
+ * @param     {Object}    obj
+ * @return    {Number}    size
+ */
 export function objectSize(obj) {
   let size = 0, key;
     for (key in obj) {
@@ -18,29 +17,49 @@ export function objectSize(obj) {
   return size;
 }
 
-// Checks if value is the language type of Object
-// will skip values === null
+/**
+ * Checks if value is the language type of Object
+ * will skip values === null
+ * @param     {Mixed}    prop
+ * @return    {Bool}
+ */
 export function isObject(prop) {
   // Weird behaviour with spec in Javascript, the typeof Array is Object
   return prop !== null && !Array.isArray(prop) && typeof prop === 'object';
 }
 
-// Checks if value is classified as a Function object
+/**
+ * Checks if value is classified as a Function object
+ * @param     {Mixed}    prop
+ * @return    {Bool}
+ */
 export function isFunction(prop) {
   return typeof prop === 'function';
 }
 
-// Checks if value is classified as a String primitive or object
+/**
+ * Checks if value is classified as a String primitive or object
+ * @param     {Mixed}    prop
+ * @return    {Bool}
+ */
 export function isString(prop) {
   return typeof prop === 'string';
 }
 
-// Checks if value is classified as an Array object
+/**
+ * Checks if value is classified as an Array object
+ * @param     {Mixed}    prop
+ * @return    {Bool}
+ */
 export function isArray(prop) {
   return Array.isArray(prop);
 }
 
-// Checks if value is undefined
+/**
+ * Checks if value is undefined
+ * @param     {Mixed}    prop
+ * @return    {Bool}
+ */
 export function isUndefined(prop) {
  return typeof prop === 'undefined';
 }
@@ -59,8 +78,14 @@ export function bind() {
   }
 }
 
-// Binds methods of an object to the object itself, overwriting the existing method.
-// Method names may be specified as individual arguments or as arrays of method names
+/**
+ * Binds methods of an object to the object itself,
+ * overwriting the existing method.
+ * Method names may be specified as individual arguments
+ * or as arrays of method names
+ * @param     {Object}  obj
+ * @return    {Object}  result
+ */
 export function bindAll(obj) {
   let result = obj;
 
@@ -72,14 +97,24 @@ export function bindAll(obj) {
   return result;
 }
 
-// Creates a duplicate-free version of an array
+/**
+ * Creates a duplicate-free version of an array
+ * @param     {Array}         val
+ * @return    {Immutable.Set}
+ */
 export function unique(val) {
   return new Immutable.Set(val);
 }
 
-// This method is like _.assign except that it recursively merges own
-// and inherited enumerable string keyed properties of source objects
-// into the destination object
+/**
+ * This method is like _.assign except that it
+ * recursively merges own and inherited enumerable
+ * string keyed properties of source objects into the
+ * destination object
+ * @param     {Object}      target
+ * @param     {Object}      source
+ * @return    {Object}      target
+ */
 export function mergeDeep(target, source) {
   if (isObject(target) && isObject(source)) {
     for (const key in source) {
@@ -116,7 +151,7 @@ export function isIEBrowser(prop) {
 }
 
  /**
-  * Detect IE browser
+  * Detect IE browser version
   * @return {String}
   */
 export function detectIEVersion() {

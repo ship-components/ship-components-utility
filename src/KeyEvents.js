@@ -1,6 +1,8 @@
-// Gets or setups up KeyEvent
-
-// Lib
+/**
+ * List of key events
+ * @param  {String} prop
+ * @return {Number}
+ */
 const {isUndefined} = require('./utils');
 
 export function KeyEvents(prop) {

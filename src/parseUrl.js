@@ -1,6 +1,9 @@
-// Breaks a URL into parts
 const urlPattern = new RegExp('^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?');
 
+/**
+ * Breaks a URL into parts
+ * @param {String} url
+ */
 export function parseUrl(url) {
   const matches = url.match(urlPattern);
   if (matches) {

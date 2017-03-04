@@ -49,10 +49,20 @@ export function capitalize(str) {
   });
 }
 
+/**
+ * Title case string
+ * @param     {String}    str
+ * @return    {String}
+ */
 export function titleCase(str) {
   return str.split(/\s/g).map((word) => capitalize(word, true)).join(' ');
 }
 
+/**
+ * Convert to camelCase string
+ * @param     {String}    str
+ * @return    {String}
+ */
 export function camelCase(str) {
   return str.charAt(0).toLowerCase() + titleCase(str).replace(/\s/g, '').substr(1);
 }
@@ -84,6 +94,7 @@ export function generateRandomString(len) {
 /**
  * Shorten string
  * @param     {String}    str
+ * @param     {Number}    charCount [default==100]
  * @return    {String}
  */
 export function stringShortener(str, charCount = 100) {
@@ -95,9 +106,10 @@ export function stringShortener(str, charCount = 100) {
 }
 
 /**
- * Validate strings
+ * Validate strings (name, username or email)
  *
- * @param     {String, String}    str, prop
+ * @param     {String}    prop [default=email]
+ * @param     {String}    str
  * @return    {Bool}
  */
 export function stringIsValid(prop, str) {
@@ -125,10 +137,10 @@ export function stringIsValid(prop, str) {
 }
 
 /**
- * Validate strings
+ * Removes HTML tags from string
  *
- * @param     {String, String}    str, prop
- * @return    {Bool}
+ * @param     {String}    str
+ * @return    {String}
  */
 export function convertHTMLToString(str) {
   if (typeof str !== 'string') {

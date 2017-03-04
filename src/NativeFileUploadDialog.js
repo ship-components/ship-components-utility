@@ -1,5 +1,9 @@
 const {isIEBrowser} = require('./utils');
 
+/**
+ * File upload dialog
+ * @constructor param {String} type
+ */
 export default class NativeFileUploadDialog {
 
   constructor(type) {
