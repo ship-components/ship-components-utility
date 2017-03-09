@@ -37,7 +37,7 @@ describe('Sort Library', () => {
         updated_at: Date.now() + 20
       }];
 
-      let arr2 = Object.assign({}, arr1);
+      let arr2 = arr1.slice(0);
       arr1.sort(sortByDates('-updated_at'));
 
       expect(arr2).not.toEqual(arr1);
@@ -59,7 +59,7 @@ describe('Sort Library', () => {
         age: 20
       }];
 
-      let arr2 = Object.assign({}, arr1);
+      let arr2 = arr1.slice(0);
       arr1.sort(sortBy('-age')).reverse();
 
       expect(arr2).not.toEqual(arr1);
