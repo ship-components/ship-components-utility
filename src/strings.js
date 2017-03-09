@@ -35,7 +35,7 @@ export function slugify(str) {
 
 /**
  * Capitalize string
- * Convert to TitleCase if more than one word
+ * If more than one word, the 1st word will be capilized
  * @param     {String}    str
  * @return    {String}
  */
@@ -44,9 +44,7 @@ export function capitalize(str) {
     return str;
   }
 
-  return str.replace(/\w\S*/g, function(txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 /**

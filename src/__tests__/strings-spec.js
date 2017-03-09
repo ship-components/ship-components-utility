@@ -35,11 +35,11 @@ describe('Strings Library', () => {
 
     test('should return true when capitalize method converts correctly', () => {
       let str1 = 'test test';
-      let str2 = 'Test Test';
+      let matchStr = 'Test test';
       let result = capitalize(str1);
 
       expect(result).not.toEqual(str1);
-      expect(result).toEqual(str2);
+      expect(result).toEqual(matchStr);
     });
 
     test('should return true when titleCase method converts correctly', () => {
