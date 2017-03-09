@@ -106,37 +106,6 @@ export function stringShortener(str, charCount = 100) {
 }
 
 /**
- * Validate strings (name, username or email)
- *
- * @param     {String}    prop [default=email]
- * @param     {String}    str
- * @return    {Bool}
- */
-export function stringIsValid(prop, str) {
-  if (typeof str !== 'string') {
-    return str;
-  }
-
-  let isValid = null;
-
-  switch(prop) {
-    case 'name':
-      isValid = /^[a-zA-Z ]{2,30}$/.test(str);
-      break;
-
-    case 'username':
-      isValid = /^[a-zA-Z0-9]+$/.test(str);
-      break;
-
-    default:
-      isValid = /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(str);
-      break;
-    }
-
-  return isValid;
-}
-
-/**
  * Removes HTML tags from string
  *
  * @param     {String}    str

@@ -10,6 +10,10 @@ describe('Strings Library', () => {
 
       expect(typeof str).toBe('string');
       expect(typeof result).toBe('number');
+
+      expect(hash('test 1')).not.toEqual(hash('test 2'));
+      // Ensure hash return the same result for the same input
+      expect(hash('test')).toEqual(hash('test'));
     });
   });
 
@@ -104,47 +108,6 @@ describe('Strings Library', () => {
       // Length would be charCount + ' ...' which is 4 chars
       expect(result.length).toEqual(charCount + 4);
       expect(result).not.toEqual(str);
-    });
-  });
-
-  describe('stringIsValid Method', () => {
-    const {stringIsValid} = require('../strings');
-
-    test('should return true when name format is valid', () => {
-      let name1 = 'Sam Assadi';
-      let name2 = 'Sam $Assadi@';
-
-      let result1 = stringIsValid('name', name1);
-      let result2 = stringIsValid('name', name2);
-
-      expect(result1).toEqual(true);
-      expect(result2).toEqual(false);
-    });
-    test('should return true when username format is valid', () => {
-      let username1 = 'sassadi9890';
-      let username2 = 'Sam Assadi';
-
-      let result1 = stringIsValid('username', username1);
-      let result2 = stringIsValid('username', username2);
-
-      expect(result1).toEqual(true);
-      expect(result2).toEqual(false);
-    });
-    test('should return true when email format is valid', () => {
-      let email1 = 'sepand.assadi@sony.com';
-      let email2 = 'sepandassadi.';
-      let email3 = 'sepandassadi.com';
-      let email4 = 'sepandassadi@';
-
-      let result1 = stringIsValid('email', email1);
-      let result2 = stringIsValid('email', email2);
-      let result3 = stringIsValid('email', email3);
-      let result4 = stringIsValid('email', email4);
-
-      expect(result1).toEqual(true);
-      expect(result2).toEqual(false);
-      expect(result3).toEqual(false);
-      expect(result4).toEqual(false);
     });
   });
 
