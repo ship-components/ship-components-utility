@@ -1,5 +1,4 @@
 'use strict';
-const Immutable = require('immutable');
 
 /**
  * Returns the size of an Object
@@ -95,15 +94,6 @@ export function bindAll(obj) {
     }
   }
   return result;
-}
-
-/**
- * Creates a duplicate-free version of an array
- * @param     {Array}         val
- * @return    {Immutable.Set}
- */
-export function unique(val) {
-  return new Immutable.Set(val);
 }
 
 /**
