@@ -76,9 +76,9 @@ export function toUnderscoreCase(str) {
   if (!str) {
     return str;
   }
-  return str.replace(/(?:^[a-z]|\.?[a-z])([A-Z])/g, function(m, l){
-    return m.replace(l, '_' + l);
-  }).toUpperCase();
+  return str.replace(/\.?([A-Z])/g, function(x,y){
+    return '_' + y.toLowerCase();
+  }).replace(/^_/, '').toUpperCase();
 }
 
 /**

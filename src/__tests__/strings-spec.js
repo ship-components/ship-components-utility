@@ -57,12 +57,20 @@ describe('Strings Library', () => {
     });
 
     test('should return true when toUnderscoreCase method converts correctly', () => {
-      let str1 = 'this is a random string';
-      let str2 = 'THIS IS A RANDOM STRING';
-      let result = toUnderscoreCase(str1);
+      let str1 = 'thisIsARandomString';
+      let str2 = 'TypeOfData.AlphaBeta';
 
-      expect(result).not.toEqual(str1);
-      expect(result).toEqual(str2);
+      let matchStr1 = 'THIS_IS_A_RANDOM_STRING';
+      let matchStr2 = 'TYPE_OF_DATA_ALPHA_BETA';
+
+      let result1 = toUnderscoreCase(str1);
+      let result2 = toUnderscoreCase(str2);
+
+      expect(result1).not.toEqual(str1);
+      expect(result1).toEqual(matchStr1);
+
+      expect(result2).not.toEqual(str2);
+      expect(result2).toEqual(matchStr2);
     });
   });
 
