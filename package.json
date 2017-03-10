@@ -1,0 +1,79 @@
+{
+  "name": "ship-components-utility",
+  "version": "0.1.0",
+  "description": "Javascript set of utilities",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npm test && grunt clean && grunt build",
+    "lint": "./node_modules/eslint/bin/eslint.js src/*.js/",
+    "test": "grunt lint && ./node_modules/jest-cli/bin/jest.js --coverage",
+    "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ship-components/ship-components-utility.git"
+  },
+  "keywords": [
+    "javascript",
+    "javascript-library",
+    "node",
+    "grunt",
+    "webpack",
+    "utilities",
+    "jest"
+  ],
+  "author": "Sepand Assadi <sepand.assadi@sony.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ship-components/ship-components-utility/issues"
+  },
+  "homepage": "https://github.com/ship-components/ship-components-utility#readme",
+  "contributors": [
+    {
+      "name": "Isaac Suttell",
+      "email": "isaac.suttell@sony.com"
+    },
+    {
+      "name": "Sepand Assadi",
+      "email": "sepand.assadi@sony.com"
+    },
+    {
+      "name": "Chris Orescan",
+      "email": "chris.orescan@sony.com"
+    }
+  ],
+  "jest": {
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    }
+  },
+  "babelJest": {
+    "include": [
+      "src/**/*.@(js|es6)"
+    ]
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "^19.0.0",
+    "babel-loader": "^6.3.2",
+    "babel-preset-latest": "^6.22.0",
+    "coveralls": "^2.11.16",
+    "eslint": "^3.16.1",
+    "eslint-config-ship-components": "^1.1.0",
+    "eslint-loader": "^1.6.3",
+    "eslint-plugin-react": "^6.10.0",
+    "extract-text-webpack-plugin": "^2.0.0",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-coveralls": "^1.0.1",
+    "grunt-eslint": "^19.0.0",
+    "grunt-webpack": "^2.0.1",
+    "jest": "^19.0.2",
+    "jest-cli": "^19.0.2",
+    "strict-loader": "^1.1.0",
+    "webpack": "^2.2.1"
+  }
+}
