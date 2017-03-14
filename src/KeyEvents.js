@@ -5,7 +5,7 @@
  */
 const {isUndefined} = require('./utils');
 
-export function KeyEvents(prop) {
+function KeyEvents(prop) {
     // Browser detection
     let KeyEvent = !module ? window.KeyEvent : void 0;
 
@@ -131,3 +131,5 @@ export function KeyEvents(prop) {
 
     return prop ? KeyEvent[prop] : KeyEvent;
 }
+
+module.exports = KeyEvents;
