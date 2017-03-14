@@ -2,7 +2,7 @@
 
 describe('ParseURL Library', () => {
    test('should return true if parses correctly', () => {
-      const {parseUrl} = require('../parseUrl');
+      const parseUrl = require('../parseUrl');
       let url1 = 'http://www.sony.com/homepage?param1=something&param2=somethingelse';
 
       let protocol = 'http';
