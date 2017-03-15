@@ -1,5 +1,5 @@
 # ship-components-utility
-[React](http://facebook.github.io/react/) set of utilities. Exports a commonjs module that can be used with [webpack](http://webpack.github.io/). Source is in ES6 and is compiled down to ES5 using [Babel](https://babeljs.io/).
+[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) set of utilities. Exports a commonjs module that can be used with [webpack](http://webpack.github.io/). Source is in ES6 and is compiled down to ES5 using [Babel](https://babeljs.io/).
 
 [![npm](https://img.shields.io/npm/v/ship-components-utility.svg?maxAge=2592000)](https://www.npmjs.com/package/ship-components-utility)
 [![Build Status](http://img.shields.io/travis/ship-components/ship-components-utility/master.svg?style=flat)](https://travis-ci.org/ship-components/ship-components-utility)
@@ -67,14 +67,20 @@ Here is the list of utilities you can use.
 The component is written using ES6 therefore Babel is recommended to use it. The below example is based on using [webpack](http://webpack.github.io/) and [babel-loader](https://github.com/babel/babel-loader).
 ```js
 <!-- import everything -->
-import * as Utility from 'ship-componenets-utility';
+import * as Utility from 'ship-components-utility';
 
-<!-- import specific method -->
-import {Strings, Sort, Utils, Collections} from 'ship-componenets-utility';
+<!-- import specific library -->
+import {Strings, Sort, Utils, Collections} from 'ship-components-utility';
+
+<!-- import specific method from a library -->
+import {capitalize, titleCase, toUnderscoreCase, generateRandomString} from 'ship-components-utility'.Strings;
 ```
 
 ## Docs
 ### Collections
+```js
+const {Collections} = require('ship-components-utility');
+```
 
 #### keys
 ```js
@@ -83,7 +89,7 @@ import {Strings, Sort, Utils, Collections} from 'ship-componenets-utility';
  * @param  {Object} obj
  * @return {Array}  result
  */
-const {keys} = require('ship-componenets-utility');
+const {keys} = require('ship-components-utility').Collections;
 let obj = { name: 'test' }
 expect(keys(obj)[0]).toEqual('name');
 ```
@@ -105,7 +111,7 @@ expect(keys(obj)[0]).toEqual('name');
  * @param  {Object} val
  * @param  {func}   fn
  */
-const {each} = require('ship-componenets-utility');
+const {each} = require('ship-components-utility').Collections;
 let obj = { name: 'test' };
 let fn = function() {}
 each(obj, fn);
@@ -170,7 +176,7 @@ each(obj, fn);
  * @param  {Mixed}          defaultValue
  * @return {Mixed}
  */
-const {getIn} = require('ship-componenets-utility');
+const {getIn} = require('ship-components-utility').Collections;
 const testMap = {
   obj1: {
     name: 'test1',
@@ -191,7 +197,7 @@ getIn(['obj1', 'obj2', 'name'], testMap); // test2
  * @param  {Array<String>}  path
  * @return {Mixed}
  */
-const {hasIn} = require('ship-componenets-utility');
+const {hasIn} = require('ship-components-utility').Collections;
 const testMap = {
   obj1: {
     name: 'test1',
@@ -218,10 +224,10 @@ hasIn(['obj1', 'obj2', 'name'], testMap); // true
 ```js
 /**
  * List of key events
- * @param  {String} prop
+ * @param  {String} prop.Collections
  * @return {Number}
  */
-const {KeyEvents} = require('ship-componenets-utility');
+const {KeyEvents} = require('ship-components-utility');
 KeyEvents('DOM_VK_PAGE_DOWN'); // 34
 KeyEvents('DOM_VK_ESCAPE');    // 27
 ```
@@ -232,7 +238,7 @@ KeyEvents('DOM_VK_ESCAPE');    // 27
  * File upload dialog
  * @constructor param {String} type
  */
-const {NativeFileUploadDialog} = require('ship-componenets-utility');
+const {NativeFileUploadDialog} = require('ship-components-utility');
 new NativeFileUploadDialog('image/*')
   .open
   .thenWith(callback_function)
@@ -244,9 +250,9 @@ new NativeFileUploadDialog('image/*')
  * Breaks a URL into parts
  * @param {String} url
  */
-const {parseUrl} = require('ship-componenets-utility');
+const {ParseUrl} = require('ship-components-utility');
 let url = 'http://www.sony.com/homepage?param1=something&param2=somethingelse';
-parseUrl(url);
+ParseUrl(url);
 <!--
 return value
 {
@@ -259,6 +265,9 @@ return value
 ```
 
 ### Sort
+```js
+const {Sort} = require('ship-components-utility');
+```
 
 #### compareDates
 ```js
@@ -269,7 +278,7 @@ return value
  * @param     {Date}    b
  * @return    {Number}
  */
-const {compareDates} = require('ship-componenets-utility');
+const {compareDates} = require('ship-components-utility').Sort;
 ```
 
 #### sortBy
@@ -281,7 +290,7 @@ const {compareDates} = require('ship-componenets-utility');
  * @param     {String...}    prop
  * @return    {Function}
  */
-const {sortBy} = require('ship-componenets-utility');
+const {sortBy} = require('ship-components-utility').Sort;
 ```
 
 #### sortByDates
@@ -293,10 +302,13 @@ const {sortBy} = require('ship-componenets-utility');
  * @param     {String...}    prop
  * @return    {Function}
  */
-const {sortByDates} = require('ship-componenets-utility');
+const {sortByDates} = require('ship-components-utility').Sort;
 ```
 
 ### Strings
+```js
+const {Strings} = require('ship-components-utility');
+```
 
 #### hash
 ```js
@@ -306,7 +318,7 @@ const {sortByDates} = require('ship-componenets-utility');
  * @param  {String} str
  * @return {Number}
  */
-const {hash} = require('ship-componenets-utility);
+const {hash} = require('ship-components-utility').Strings;
 ```
 
 #### slugify
@@ -316,7 +328,7 @@ const {hash} = require('ship-componenets-utility);
  * @param     {String}    str
  * @return    {String}
  */
-const {slugify} = require('ship-componenets-utility);
+const {slugify} = require('ship-components-utility').Strings;
 let str1 = 'THis Is A!   sample--string';
 let str2 = 'this-is-a---sample--string';
 let result = slugify(str1);
@@ -333,7 +345,7 @@ expect(result).toEqual(str2);
  * @param     {String}    str
  * @return    {String}
  */
-const {capitalize} = require('ship-componenets-utility);
+const {capitalize} = require('ship-components-utility').Strings;
 let str1 = 'test test';
 let str2 = 'Test Test';
 let result = capitalize(str1);
@@ -349,7 +361,7 @@ expect(result).toEqual(str2);
  * @param     {String}    str
  * @return    {String}
  */
-const {titleCase} = require('ship-componenets-utility);
+const {titleCase} = require('ship-components-utility').Strings;
 ```
 
 #### camelCase
@@ -359,7 +371,7 @@ const {titleCase} = require('ship-componenets-utility);
  * @param     {String}    str
  * @return    {String}
  */
-const {camelCase} = require('ship-componenets-utility);
+const {camelCase} = require('ship-components-utility').Strings;
 ```
 
 #### toUnderscoreCase
@@ -369,7 +381,7 @@ const {camelCase} = require('ship-componenets-utility);
  * @param     {String}    str
  * @return    {String}
  */
-const {toUnderscoreCase} = require('ship-componenets-utility);
+const {toUnderscoreCase} = require('ship-components-utility').Strings;
 ```
 
 #### generateRandomString
@@ -379,7 +391,7 @@ const {toUnderscoreCase} = require('ship-componenets-utility);
  * @param  {Number} len
  * @return {String}
  */
-const {generateRandomString} = require('ship-componenets-utility);
+const {generateRandomString} = require('ship-components-utility').Strings;
 ```
 
 #### stringShortener
@@ -390,7 +402,7 @@ const {generateRandomString} = require('ship-componenets-utility);
  * @param     {Number}    charCount [default==100]
  * @return    {String}
  */
-const {stringShortener} = require('ship-componenets-utility);
+const {stringShortener} = require('ship-components-utility').Strings;
 ```
 
 #### stringIsValid
@@ -402,7 +414,7 @@ const {stringShortener} = require('ship-componenets-utility);
  * @param     {String}    str
  * @return    {Bool}
  */
-const {stringIsValid} = require('ship-componenets-utility);
+const {stringIsValid} = require('ship-components-utility').Strings;
 ```
 
 #### convertHTMLToString
@@ -413,7 +425,7 @@ const {stringIsValid} = require('ship-componenets-utility);
  * @param     {String}    str
  * @return    {String}
  */
-const {convertHTMLToString} = require('ship-componenets-utility);
+const {convertHTMLToString} = require('ship-components-utility').Strings;
 let str = '<p>this is a text for<span>testing</span></p>';
 let result = convertHTMLToString(str);
 
@@ -422,6 +434,9 @@ expect(result).toEqual('this is a text fortesting');
 ```
 
 ### Utils
+```js
+const {Utils} = require('ship-components-utility');
+```
 
 #### objectSize
 ```js
@@ -430,7 +445,7 @@ expect(result).toEqual('this is a text fortesting');
  * @param     {Object}    obj
  * @return    {Number}    size
  */
-const {objectSize} = require('ship-componenets-utility);
+const {objectSize} = require('ship-components-utility').Utils;
 ```
 
 #### isObject
@@ -441,7 +456,7 @@ const {objectSize} = require('ship-componenets-utility);
  * @param     {Mixed}    prop
  * @return    {Bool}
  */
-const {isObject} = require('ship-componenets-utility);
+const {isObject} = require('ship-components-utility').Utils;
 ```
 
 #### isFunction
@@ -451,7 +466,7 @@ const {isObject} = require('ship-componenets-utility);
  * @param     {Mixed}    prop
  * @return    {Bool}
  */
-const {isFunction} = require('ship-componenets-utility);
+const {isFunction} = require('ship-components-utility').Utils;
 ```
 
 #### isString
@@ -461,7 +476,7 @@ const {isFunction} = require('ship-componenets-utility);
  * @param     {Mixed}    prop
  * @return    {Bool}
  */
-const {isString} = require('ship-componenets-utility);
+const {isString} = require('ship-components-utility').Utils;
 ```
 
 #### isArray
@@ -471,7 +486,7 @@ const {isString} = require('ship-componenets-utility);
  * @param     {Mixed}    prop
  * @return    {Bool}
  */
-const {isArray} = require('ship-componenets-utility);
+const {isArray} = require('ship-components-utility').Utils;
 ```
 
 #### isUndefined
@@ -481,7 +496,7 @@ const {isArray} = require('ship-componenets-utility);
  * @param     {Mixed}    prop
  * @return    {Bool}
  */
-const {isUndefined} = require('ship-componenets-utility);
+const {isUndefined} = require('ship-components-utility').Utils;
 ```
 
 #### bind
@@ -492,7 +507,7 @@ const {isUndefined} = require('ship-componenets-utility);
  * @return    {Undefined}
  * @example   bind(this, 'handleClick', 'handleSubmit');
  */
-const {bind} = require('ship-componenets-utility);
+const {bind} = require('ship-components-utility').Utils;
 ```
 
 #### bindAll
@@ -505,7 +520,7 @@ const {bind} = require('ship-componenets-utility);
  * @param     {Object}  obj
  * @return    {Object}  result
  */
-const {bindAll} = require('ship-componenets-utility);
+const {bindAll} = require('ship-components-utility').Utils;
 ```
 
 #### unique
@@ -515,7 +530,7 @@ const {bindAll} = require('ship-componenets-utility);
  * @param     {Array}         val
  * @return    {Immutable.Set}
  */
-const {unique} = require('ship-componenets-utility);
+const {unique} = require('ship-components-utility').Utils;
 ```
 
 #### mergeDeep
@@ -530,7 +545,7 @@ const {unique} = require('ship-componenets-utility);
  * @return    {Object}      target
  */
 
-const {mergeDeep} = require('ship-componenets-utility);
+const {mergeDeep} = require('ship-components-utility').Utils;
 ```
 
 #### isIEBrowser
@@ -540,7 +555,7 @@ const {mergeDeep} = require('ship-componenets-utility);
  * @param  {String}     prop
  * @return {Bool}
  */
-const {isIEBrowser} = require('ship-componenets-utility);
+const {isIEBrowser} = require('ship-components-utility').Utils;
 ```
 
 #### detectIEVersion
@@ -549,7 +564,7 @@ const {isIEBrowser} = require('ship-componenets-utility);
   * Detect IE browser version
   * @return {String}
   */
-const {detectIEVersion} = require('ship-componenets-utility);
+const {detectIEVersion} = require('ship-components-utility').Utils;
 ```
 
 ## Development
@@ -595,6 +610,7 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
+* 1.0.0 - First major version, fixed the export module path
 * 0.1.0 - Initial
 
 ## License
