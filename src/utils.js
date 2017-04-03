@@ -122,6 +122,25 @@ export function mergeDeep(target, source) {
 }
 
 /**
+ * Recursive object copy
+ *
+ * @param     {Array<Objects> || Objects}    obj
+ * @return    {Array<Objects> || Objects}
+ */
+export function deepCopy(obj) {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+  var src = obj instanceof Array ? [] : {};
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      src[key] = deepCopy(obj[key]);
+    }
+  }
+  return src;
+}
+
+/**
  * Detect IE browser
  * @param  {String} prop
  * @return {Bool}

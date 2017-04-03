@@ -57,6 +57,7 @@ Here is the list of utilities you can use.
   * [bindAll](#bindall)
   * [unique](#unique)
   * [mergeDeep](#mergedeep)
+  * [deepCopy](#deepcopy)
   * [isIEBrowser](#isiebrowser)
   * [detectIEVersion](#detectieversion)
 
@@ -548,6 +549,18 @@ const {unique} = require('ship-components-utility').Utils;
 const {mergeDeep} = require('ship-components-utility').Utils;
 ```
 
+#### deepCopy
+```js
+/**
+ * Recursive object copy
+ *
+ * @param     {Array<Objects> || Objects}    obj
+ * @return    {Array<Objects> || Objects}
+ */
+
+const {deepCopy} = require('ship-components-utility').Utils;
+```
+
 #### isIEBrowser
 ```js
 /**
@@ -610,6 +623,7 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
+* 1.0.1 - Adds a deepCopy function to utility library
 * 1.0.0 - First major version, fixed the export module path
 * 0.1.0 - Initial
 

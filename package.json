@@ -1,6 +1,6 @@
 {
   "name": "ship-components-utility",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Javascript set of utilities",
   "main": "src/index.js",
   "scripts": {
