@@ -623,7 +623,7 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
-* 1.0.1 - Adds a deepCopy function to utility library
+* 1.1.0 - Adds a deepCopy function to utility library to copy (recursively) objects, array of objects or date objects.
 * 1.0.0 - First major version, fixed the export module path
 * 0.1.0 - Initial
 
