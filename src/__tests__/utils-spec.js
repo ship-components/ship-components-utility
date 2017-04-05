@@ -285,27 +285,6 @@ describe('Utils Library', () => {
       expect(result[1].config.deepConfig.ssl).toBe(arr[1].config.deepConfig.ssl);
     });
 
-    test('should copy the object correctly, not reference copy', function() {
-      // Making sure it's actually copy
-      // and not reference copy
-      let obj = {
-        first: 'test 1',
-        second: true
-      };
-
-      let result = deepCopy(obj);
-
-      // There are not a same object in memory
-      expect(result).not.toBe(obj);
-      expect(result.first).toEqual(obj.first);
-
-      // Now changing the source object,
-      // but result object should not be changed
-      obj.second = false;
-
-      expect(result.second).not.toEqual(obj.second);
-    });
-
     test('should copy the object correctly, not mutate', function() {
       // Mutating a source object should have
       // no effect on the result object
