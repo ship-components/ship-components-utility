@@ -122,6 +122,68 @@ export function mergeDeep(target, source) {
 }
 
 /**
+ * Recursive object copy
+ *
+ * @param     {Array<Objects> || Objects}    obj
+ * @return    {Array<Objects> || Objects}
+ */
+/* eslint-disable */
+export function deepCopy(obj) {
+  var result;
+
+  // Handle Date
+  if (obj instanceof Date) {
+    result = new Date();
+    result.setTime(obj.getTime());
+    return result;
+  }
+
+  var gdcc = '__getDeepCircularCopy__';
+  if (obj !== Object(obj)) {
+      return obj; // primitive value
+  }
+
+  var set = gdcc in obj;
+  var cache = obj[gdcc];
+
+  if (set && typeof cache === 'function') {
+      return cache();
+  }
+  // else
+  obj[gdcc] = function() {
+    return result;
+  }; // overwrite
+
+  // Array of objects
+  if (obj instanceof Array) {
+    result = [];
+    for (var i=0; i<obj.length; i++) {
+        result[i] = deepCopy(obj[i]);
+    }
+  } else if(obj instanceof Object) {
+    // Object or nested objects (tree)
+    result = {};
+    for (var prop in obj) {
+      if (prop !== gdcc) {
+        result[prop] = deepCopy(obj[prop]);
+      } else if (set) {
+        result[prop] = deepCopy(cache);
+      }
+    }
+  } else {
+    throw new Error('Unable to copy obj! Its type is not supported.');
+  }
+
+  if (set) {
+      obj[gdcc] = cache; // reset
+  } else {
+      delete obj[gdcc]; // unset again
+  }
+  return result;
+}
+/*eslint-enable */
+
+/**
  * Detect IE browser
  * @param  {String} prop
  * @return {Bool}

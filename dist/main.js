@@ -106,6 +106,7 @@ exports.isUndefined = isUndefined;
 exports.bind = bind;
 exports.bindAll = bindAll;
 exports.mergeDeep = mergeDeep;
+exports.deepCopy = deepCopy;
 exports.isIEBrowser = isIEBrowser;
 exports.detectIEVersion = detectIEVersion;
 
@@ -229,6 +230,68 @@ function mergeDeep(target, source) {
 }
 
 /**
+ * Recursive object copy
+ *
+ * @param     {Array<Objects> || Objects}    obj
+ * @return    {Array<Objects> || Objects}
+ */
+/* eslint-disable */
+function deepCopy(obj) {
+  var result;
+
+  // Handle Date
+  if (obj instanceof Date) {
+    result = new Date();
+    result.setTime(obj.getTime());
+    return result;
+  }
+
+  var gdcc = '__getDeepCircularCopy__';
+  if (obj !== Object(obj)) {
+    return obj; // primitive value
+  }
+
+  var set = gdcc in obj;
+  var cache = obj[gdcc];
+
+  if (set && typeof cache === 'function') {
+    return cache();
+  }
+  // else
+  obj[gdcc] = function () {
+    return result;
+  }; // overwrite
+
+  // Array of objects
+  if (obj instanceof Array) {
+    result = [];
+    for (var i = 0; i < obj.length; i++) {
+      result[i] = deepCopy(obj[i]);
+    }
+  } else if (obj instanceof Object) {
+    // Object or nested objects (tree)
+    result = {};
+    for (var prop in obj) {
+      if (prop !== gdcc) {
+        result[prop] = deepCopy(obj[prop]);
+      } else if (set) {
+        result[prop] = deepCopy(cache);
+      }
+    }
+  } else {
+    throw new Error('Unable to copy obj! Its type is not supported.');
+  }
+
+  if (set) {
+    obj[gdcc] = cache; // reset
+  } else {
+    delete obj[gdcc]; // unset again
+  }
+  return result;
+}
+/*eslint-enable */
+
+/**
  * Detect IE browser
  * @param  {String} prop
  * @return {Bool}
@@ -303,11 +366,6 @@ function detectIEVersion() {
  * @param  {String} prop
  * @return {Number}
  */
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.KeyEvents = KeyEvents;
 
 var _require = __webpack_require__(0),
     isUndefined = _require.isUndefined;
@@ -438,6 +496,8 @@ function KeyEvents(prop) {
 
     return prop ? KeyEvent[prop] : KeyEvent;
 }
+
+module.exports = KeyEvents;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)(module)))
 
 /***/ }),
@@ -830,10 +890,6 @@ function isEqual(a, b) {
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.parseUrl = parseUrl;
 var urlPattern = new RegExp('^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?');
 
 /**
@@ -854,6 +910,8 @@ function parseUrl(url) {
     return void 0;
   }
 }
+
+module.exports = parseUrl;
 
 /***/ }),
 /* 5 */
@@ -1014,7 +1072,6 @@ exports.camelCase = camelCase;
 exports.toUnderscoreCase = toUnderscoreCase;
 exports.generateRandomString = generateRandomString;
 exports.stringShortener = stringShortener;
-exports.stringIsValid = stringIsValid;
 exports.convertHTMLToString = convertHTMLToString;
 function hash(str) {
   var result = 0;
@@ -1043,7 +1100,7 @@ function slugify(str) {
 
 /**
  * Capitalize string
- * Convert to TitleCase if more than one word
+ * If more than one word, the 1st word will be capilized
  * @param     {String}    str
  * @return    {String}
  */
@@ -1052,9 +1109,7 @@ function capitalize(str) {
     return str;
   }
 
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  });
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 /**
@@ -1115,37 +1170,6 @@ function stringShortener(str) {
   }
 
   return str.slice(0, charCount) + ' ...';
-}
-
-/**
- * Validate strings (name, username or email)
- *
- * @param     {String}    prop [default=email]
- * @param     {String}    str
- * @return    {Bool}
- */
-function stringIsValid(prop, str) {
-  if (typeof str !== 'string') {
-    return str;
-  }
-
-  var isValid = null;
-
-  switch (prop) {
-    case 'name':
-      isValid = /^[a-zA-Z ]{2,30}$/.test(str);
-      break;
-
-    case 'username':
-      isValid = /^[a-zA-Z0-9]+$/.test(str);
-      break;
-
-    default:
-      isValid = /^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(str);
-      break;
-  }
-
-  return isValid;
 }
 
 /**
@@ -1274,11 +1298,23 @@ module.exports = function(module) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Collections = exports.Sort = exports.KeyEvents = exports.Utils = exports.NativeFileUploadDialog = exports.ParseUrl = exports.Strings = undefined;
+exports.KeyEvents = exports.NativeFileUploadDialog = exports.ParseUrl = exports.Collections = exports.Sort = exports.Utils = exports.Strings = undefined;
 
 var _strings = __webpack_require__(6);
 
-var _strings2 = _interopRequireDefault(_strings);
+var strings = _interopRequireWildcard(_strings);
+
+var _utils = __webpack_require__(0);
+
+var utils = _interopRequireWildcard(_utils);
+
+var _sort = __webpack_require__(5);
+
+var sort = _interopRequireWildcard(_sort);
+
+var _collections = __webpack_require__(3);
+
+var collections = _interopRequireWildcard(_collections);
 
 var _parseUrl = __webpack_require__(4);
 
@@ -1288,32 +1324,23 @@ var _NativeFileUploadDialog = __webpack_require__(2);
 
 var _NativeFileUploadDialog2 = _interopRequireDefault(_NativeFileUploadDialog);
 
-var _utils = __webpack_require__(0);
-
-var _utils2 = _interopRequireDefault(_utils);
-
 var _KeyEvents = __webpack_require__(1);
 
 var _KeyEvents2 = _interopRequireDefault(_KeyEvents);
 
-var _sort = __webpack_require__(5);
-
-var _sort2 = _interopRequireDefault(_sort);
-
-var _collections = __webpack_require__(3);
-
-var _collections2 = _interopRequireDefault(_collections);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _strings2.default;
-var Strings = exports.Strings = _strings2.default;
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+exports.default = strings;
+var Strings = exports.Strings = strings;
+var Utils = exports.Utils = utils;
+var Sort = exports.Sort = sort;
+var Collections = exports.Collections = collections;
+
 var ParseUrl = exports.ParseUrl = _parseUrl2.default;
 var NativeFileUploadDialog = exports.NativeFileUploadDialog = _NativeFileUploadDialog2.default;
-var Utils = exports.Utils = _utils2.default;
 var KeyEvents = exports.KeyEvents = _KeyEvents2.default;
-var Sort = exports.Sort = _sort2.default;
-var Collections = exports.Collections = _collections2.default;
 
 /***/ })
 /******/ ]);
