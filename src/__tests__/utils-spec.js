@@ -185,7 +185,7 @@ describe('Utils Library', () => {
     });
 
     test('should return array type if input is an array', function() {
-      var obj1 = [
+      let obj1 = [
         {
           name: 'test1',
           test1: false
@@ -196,23 +196,33 @@ describe('Utils Library', () => {
         }
       ];
 
-      var result = deepCopy(obj1);
+      let result = deepCopy(obj1);
 
       expect(typeof result).toBe(typeof obj1);
     });
 
     test('should return object type if input is an object', function() {
-      var obj1 = {
+      let obj1 = {
           name: 'test1',
           test1: false
         };
-      var result = deepCopy(obj1);
+      let result = deepCopy(obj1);
 
       expect(typeof result).toBe(typeof obj1);
     });
 
+    test('should return object type if input is a date', function() {
+      let obj1 = {
+        d: new Date()
+      }
+      let result = deepCopy(obj1);
+
+      expect(typeof result).toBe(typeof obj1);
+      expect(result.d).toEqual(obj1.d);
+    });
+
     test('should deeply copy an object', function() {
-      var obj = {
+      let obj = {
         name: 'test',
         test: false,
         config: {
@@ -228,7 +238,7 @@ describe('Utils Library', () => {
         }
       };
 
-      var result = deepCopy(obj);
+      let result = deepCopy(obj);
 
       expect(result.config.port).toBe(obj.config.port);
       expect(result.config.host).toBe(obj.config.host);
@@ -238,7 +248,7 @@ describe('Utils Library', () => {
     });
 
     test('should deeply copy an array of objects', function() {
-      var arr = [
+      let arr = [
         {
           name: 'test',
           test: false,
@@ -271,7 +281,7 @@ describe('Utils Library', () => {
         }
       ];
 
-      var result = deepCopy(arr);
+      let result = deepCopy(arr);
 
       expect(result.length).toEqual(arr.length);
       expect(result[0].config.port).toBe(arr[0].config.port);
@@ -279,6 +289,94 @@ describe('Utils Library', () => {
       expect(result[1].config.deepConfig.db).toBe(arr[1].config.deepConfig.db);
       expect(result[1].config.deepConfig.ssl).toBe(arr[1].config.deepConfig.ssl);
       expect(result[1].config.cache.type).toBe(arr[1].config.cache.type);
+    });
+
+    test('should copy the object correctly, not reference copy', function() {
+      // Making sure it's actually copy
+      // and not reference copy
+      let tree = {
+        'left'  : { 'left' : null, 'right' : null, 'data' : 3 },
+        'right' : null,
+        'data'  : 8
+      };
+
+      let result = deepCopy(tree);
+
+      // There are not a same object in memory
+      expect(result).not.toBe(tree);
+      expect(result.left).toEqual(tree.left);
+      expect(result.right).toEqual(tree.right);
+
+      // Now changing the source object,
+      // but result should not be changed
+      tree.right = tree.left;
+
+      // There are still not a same object in memory
+      expect(result).not.toBe(tree);
+      expect(result.left).toEqual(tree.left);
+      expect(result.right).toEqual(null);
+      expect(result.right).not.toEqual(tree.right);
+    });
+
+    test('should copy the object correctly, nested object structure', function() {
+      // Mutating a source object should have
+      // no effect on the result object
+      function Circ() {
+        this.me = this;
+      }
+
+      function Nested(y) {
+        this.y = y;
+      }
+
+      let a = {
+        x: 'a',
+        circ: new Circ(),
+        nested: new Nested('a')
+      };
+
+      let b = deepCopy(a);
+
+      // There are not a same object in memory
+      expect(a).not.toBe(b);
+      expect(a.x).toEqual(b.x);
+      expect(a.nested.y).toEqual(b.nested.y);
+
+      b.x = 'b';
+      b.nested.y = 'b';
+
+      // There are still not a same object in memory
+      expect(a).not.toBe(b);
+      expect(a.x).toEqual('a');
+      expect(b.x).toEqual('b');
+      expect(a.nested.y).not.toEqual(b.nested.y);
+    });
+
+      test('should copy the object correctly, not mutate', function() {
+      // Mutating a source object should have
+      // no effect on the result object
+      let a = {
+        test: '1'
+      };
+
+      let b = {
+        example: '2'
+      };
+
+      let test1 = deepCopy(a);
+      let test2 = deepCopy(b);
+
+      expect(a).not.toBe(b);
+      expect(test1).not.toBe(test2);
+
+      expect(typeof a.example).toBe('undefined');
+      expect(typeof test1.example).toBe('undefined');
+
+      expect(typeof b.test).toBe('undefined');
+      expect(typeof test2.test).toBe('undefined');
+
+      expect(test1.test).toEqual(a.test);
+      expect(test2.example).toEqual(b.example);
     });
   });
 
