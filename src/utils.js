@@ -1,6 +1,11 @@
 'use strict';
 
 /**
+ * @alias to pluck
+ */
+export {default as pluck} from './pluck';
+
+/**
  * Returns the size of an Object
  * @param     {Object}    obj
  * @return    {Number}    size
