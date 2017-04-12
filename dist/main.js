@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -86,9 +86,7 @@ return /******/ (function(modules) { // webpackBootstrap
 'use strict';
 
 /**
- * Returns the size of an Object
- * @param     {Object}    obj
- * @return    {Number}    size
+ * @alias to pluck
  */
 
 Object.defineProperty(exports, "__esModule", {
@@ -97,6 +95,14 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+var _pluck = __webpack_require__(9);
+
+Object.defineProperty(exports, 'pluck', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_pluck).default;
+  }
+});
 exports.objectSize = objectSize;
 exports.isObject = isObject;
 exports.isFunction = isFunction;
@@ -110,8 +116,15 @@ exports.deepCopy = deepCopy;
 exports.isIEBrowser = isIEBrowser;
 exports.detectIEVersion = detectIEVersion;
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+/**
+ * Returns the size of an Object
+ * @param     {Object}    obj
+ * @return    {Number}    size
+ */
 function objectSize(obj) {
   var size = 0,
       key = void 0;
@@ -359,6 +372,73 @@ function detectIEVersion() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function isType(type) {
+  var not = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var val = arguments[2];
+
+  var result = void 0;
+  if (type === 'Undefined') {
+    // If value is set to the global `undefined` we'll get the wrong result.
+    // Minifiers may do this
+    result = typeof val === 'undefined';
+  } else {
+    result = Object.prototype.toString.call(val) === '[object ' + type + ']';
+  }
+  return not ? !result : result;
+}
+
+var keys = {
+  obj: 'Object',
+  str: 'String',
+  undef: 'Undefined',
+  func: 'Function',
+  nul: 'Null',
+  arr: 'Array',
+  num: 'Number'
+};
+
+var obj = exports.obj = isType.bind(null, 'Object', false);
+
+var str = exports.str = isType.bind(null, 'String', false);
+
+var undef = exports.undef = isType.bind(null, 'Undefined', false);
+
+var func = exports.func = isType.bind(null, 'Function', false);
+
+var nul = exports.nul = isType.bind(null, 'Null', false);
+
+var arr = exports.arr = isType.bind(null, 'Array', false);
+
+var num = exports.num = isType.bind(null, 'Number', false);
+
+function iter(not, val) {
+  var result = obj(val) || arr(val) || func(val);
+  return not ? !result : result;
+}
+
+var iterable = exports.iterable = iter.bind(null, false);
+
+var not = exports.not = function () {
+  var fns = {};
+  for (var key in keys) {
+    if (keys.hasOwnProperty(key)) {
+      fns[key] = isType.bind(null, keys[key], true);
+    }
+  }
+  fns.iterable = iter.bind(null, true);
+  return fns;
+}(undefined);
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /* WEBPACK VAR INJECTION */(function(module) {
 
 /**
@@ -498,10 +578,10 @@ function KeyEvents(prop) {
 }
 
 module.exports = KeyEvents;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -635,7 +715,7 @@ var NativeFileUploadDialog = function () {
 exports.default = NativeFileUploadDialog;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -659,7 +739,7 @@ exports.getIn = getIn;
 exports.hasIn = hasIn;
 exports.isEqual = isEqual;
 
-var _is = __webpack_require__(7);
+var _is = __webpack_require__(1);
 
 var is = _interopRequireWildcard(_is);
 
@@ -884,7 +964,7 @@ function isEqual(a, b) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -914,7 +994,7 @@ function parseUrl(url) {
 module.exports = parseUrl;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1048,7 +1128,7 @@ function sortByDates() {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1187,74 +1267,108 @@ function convertHTMLToString(str) {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+/**
+ * Exports
+ *
+ * @examples
+ *    import {capitalize, stringShortener} from "ship-components-utility";
+ */
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-function isType(type) {
-  var not = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  var val = arguments[2];
+exports.KeyEvents = exports.NativeFileUploadDialog = exports.ParseUrl = exports.Collections = exports.Sort = exports.Utils = exports.Strings = undefined;
 
-  var result = void 0;
-  if (type === 'Undefined') {
-    // If value is set to the global `undefined` we'll get the wrong result.
-    // Minifiers may do this
-    result = typeof val === 'undefined';
-  } else {
-    result = Object.prototype.toString.call(val) === '[object ' + type + ']';
-  }
-  return not ? !result : result;
-}
+var _strings = __webpack_require__(7);
 
-var keys = {
-  obj: 'Object',
-  str: 'String',
-  undef: 'Undefined',
-  func: 'Function',
-  nul: 'Null',
-  arr: 'Array',
-  num: 'Number'
-};
+var strings = _interopRequireWildcard(_strings);
 
-var obj = exports.obj = isType.bind(null, 'Object', false);
+var _utils = __webpack_require__(0);
 
-var str = exports.str = isType.bind(null, 'String', false);
+var utils = _interopRequireWildcard(_utils);
 
-var undef = exports.undef = isType.bind(null, 'Undefined', false);
+var _sort = __webpack_require__(6);
 
-var func = exports.func = isType.bind(null, 'Function', false);
+var sort = _interopRequireWildcard(_sort);
 
-var nul = exports.nul = isType.bind(null, 'Null', false);
+var _collections = __webpack_require__(4);
 
-var arr = exports.arr = isType.bind(null, 'Array', false);
+var collections = _interopRequireWildcard(_collections);
 
-var num = exports.num = isType.bind(null, 'Number', false);
+var _parseUrl = __webpack_require__(5);
 
-function iter(not, val) {
-  var result = obj(val) || arr(val) || func(val);
-  return not ? !result : result;
-}
+var _parseUrl2 = _interopRequireDefault(_parseUrl);
 
-var iterable = exports.iterable = iter.bind(null, false);
+var _NativeFileUploadDialog = __webpack_require__(3);
 
-var not = exports.not = function () {
-  var fns = {};
-  for (var key in keys) {
-    if (keys.hasOwnProperty(key)) {
-      fns[key] = isType.bind(null, keys[key], true);
-    }
-  }
-  fns.iterable = iter.bind(null, true);
-  return fns;
-}(undefined);
+var _NativeFileUploadDialog2 = _interopRequireDefault(_NativeFileUploadDialog);
+
+var _KeyEvents = __webpack_require__(2);
+
+var _KeyEvents2 = _interopRequireDefault(_KeyEvents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+exports.default = strings;
+var Strings = exports.Strings = strings;
+var Utils = exports.Utils = utils;
+var Sort = exports.Sort = sort;
+var Collections = exports.Collections = collections;
+
+var ParseUrl = exports.ParseUrl = _parseUrl2.default;
+var NativeFileUploadDialog = exports.NativeFileUploadDialog = _NativeFileUploadDialog2.default;
+var KeyEvents = exports.KeyEvents = _KeyEvents2.default;
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = pluck;
+
+var _is = __webpack_require__(1);
+
+var is = _interopRequireWildcard(_is);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+/**
+ * Extract only certian fields form an objectSize
+ * @param    {Object}           src
+ * @param    {Array<String>}    fields
+ * @return   {Object}
+ */
+function pluck(src, fields) {
+  if (is.not.obj(src)) {
+    throw new Error('src is not an object');
+  } else if (is.not.arr(fields)) {
+    throw new Error('fields is not an array');
+  }
+
+  var result = {};
+  fields.forEach(function (key) {
+    result[key] = src[key];
+  });
+  return result;
+}
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -1280,67 +1394,6 @@ module.exports = function(module) {
 	return module;
 };
 
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Exports
- *
- * @examples
- *    import {capitalize, stringShortener} from "ship-components-utility";
- */
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.KeyEvents = exports.NativeFileUploadDialog = exports.ParseUrl = exports.Collections = exports.Sort = exports.Utils = exports.Strings = undefined;
-
-var _strings = __webpack_require__(6);
-
-var strings = _interopRequireWildcard(_strings);
-
-var _utils = __webpack_require__(0);
-
-var utils = _interopRequireWildcard(_utils);
-
-var _sort = __webpack_require__(5);
-
-var sort = _interopRequireWildcard(_sort);
-
-var _collections = __webpack_require__(3);
-
-var collections = _interopRequireWildcard(_collections);
-
-var _parseUrl = __webpack_require__(4);
-
-var _parseUrl2 = _interopRequireDefault(_parseUrl);
-
-var _NativeFileUploadDialog = __webpack_require__(2);
-
-var _NativeFileUploadDialog2 = _interopRequireDefault(_NativeFileUploadDialog);
-
-var _KeyEvents = __webpack_require__(1);
-
-var _KeyEvents2 = _interopRequireDefault(_KeyEvents);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-exports.default = strings;
-var Strings = exports.Strings = strings;
-var Utils = exports.Utils = utils;
-var Sort = exports.Sort = sort;
-var Collections = exports.Collections = collections;
-
-var ParseUrl = exports.ParseUrl = _parseUrl2.default;
-var NativeFileUploadDialog = exports.NativeFileUploadDialog = _NativeFileUploadDialog2.default;
-var KeyEvents = exports.KeyEvents = _KeyEvents2.default;
 
 /***/ })
 /******/ ]);

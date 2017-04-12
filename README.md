@@ -1,5 +1,5 @@
 # ship-components-utility
-[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) set of utilities. Exports a commonjs module that can be used with [webpack](http://webpack.github.io/). Source is in ES6 and is compiled down to ES5 using [Babel](https://babeljs.io/).
+[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) set of utilities. Exports a commonjs module that can be used with [webpack](http://webpack.github.io/). Source is in ES6 and an ES5 version is available using [Babel](https://babeljs.io/).
 
 [![npm](https://img.shields.io/npm/v/ship-components-utility.svg?maxAge=2592000)](https://www.npmjs.com/package/ship-components-utility)
 [![Build Status](http://img.shields.io/travis/ship-components/ship-components-utility/master.svg?style=flat)](https://travis-ci.org/ship-components/ship-components-utility)
@@ -58,6 +58,7 @@ Here is the list of utilities you can use.
   * [unique](#unique)
   * [mergeDeep](#mergedeep)
   * [deepCopy](#deepcopy)
+  * [pluck](#pluck)
   * [isIEBrowser](#isiebrowser)
   * [detectIEVersion](#detectieversion)
 
@@ -561,6 +562,19 @@ const {mergeDeep} = require('ship-components-utility').Utils;
 const {deepCopy} = require('ship-components-utility').Utils;
 ```
 
+#### pluck
+```js
+/**
+ * Extract a subset of keys off of an object
+ *
+ * @param     {Object}          src
+ * @return    {Array<String>}   fields
+ * @return    {Object}
+ */
+
+const {pluck} = require('ship-components-utility').Utils;
+```
+
 #### isIEBrowser
 ```js
 /**
@@ -593,7 +607,7 @@ $ npm test
 This module is designed to be used with webpack but requires a few loaders if you are pulling the source into another project.
 
 ```shell
-$ npm install webpack babel-loader extract-text-webpack-plugin --save-dev
+$ npm install webpack babel-loader --save-dev
 ```
 
 Below are is a sample of how to setup the loaders:
@@ -623,6 +637,7 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
+* 1.2.0 - Added pluck function to Util and added watch:test command
 * 1.1.0 - Adds a deepCopy function to utility library to copy (recursively) objects, array of objects or date objects.
 * 1.0.0 - First major version, fixed the export module path
 * 0.1.0 - Initial
