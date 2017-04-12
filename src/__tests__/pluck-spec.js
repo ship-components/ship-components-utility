@@ -13,6 +13,16 @@ describe('pluck', () => {
     expect(typeof result.name).toBe('undefined');
   });
 
+  test('it should only copy keys in the src object', () => {
+    let src = {
+      key: 'ship-components',
+      exists: void 0
+    };
+    let result = pluck(src, ['name', 'exists']);
+    expect('name' in result).toBe(false);
+    expect('exists' in result).toBe(true);
+  });
+
   test('it should throw an error if the src argument is not an object', () => {
     expect(()=>{
       pluck(true, ['key']);

@@ -1362,7 +1362,9 @@ function pluck(src, fields) {
 
   var result = {};
   fields.forEach(function (key) {
-    result[key] = src[key];
+    if (key in src) {
+      result[key] = src[key];
+    }
   });
   return result;
 }
