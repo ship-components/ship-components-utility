@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -95,7 +95,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _pluck = __webpack_require__(9);
+var _pluck = __webpack_require__(10);
 
 Object.defineProperty(exports, 'pluck', {
   enumerable: true,
@@ -374,6 +374,51 @@ function detectIEVersion() {
 "use strict";
 
 
+/**
+ * Get a nested value of an object or return
+ * @param  {Array<String>}  path
+ * @param  {Object}         obj
+ * @param  {Mixed}          defaultValue
+ * @return {Mixed}
+ */
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.default = getIn;
+function getIn(path, obj, defaultValue) {
+  if ((typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) !== 'object' || path instanceof Array !== true) {
+    return defaultValue;
+  } else if (path.length === 0) {
+    return obj;
+  }
+
+  // Let the cloning begin
+  path = path.slice(0);
+  var result = Object.assign({}, obj);
+
+  while (path.length > 0) {
+    var key = path.shift();
+    if (!(key in result)) {
+      // Can'd the the key in the object so return the defaultValue
+      return defaultValue;
+    }
+    result = result[key];
+  }
+
+  return result;
+}
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -435,7 +480,7 @@ var not = exports.not = function () {
 }(undefined);
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -578,10 +623,10 @@ function KeyEvents(prop) {
 }
 
 module.exports = KeyEvents;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)(module)))
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -715,7 +760,7 @@ var NativeFileUploadDialog = function () {
 exports.default = NativeFileUploadDialog;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -724,9 +769,18 @@ exports.default = NativeFileUploadDialog;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.getIn = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+var _getIn = __webpack_require__(1);
+
+Object.defineProperty(exports, 'getIn', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_getIn).default;
+  }
+});
 exports.keys = keys;
 exports.toArray = toArray;
 exports.each = each;
@@ -735,15 +789,20 @@ exports.searchFn = searchFn;
 exports.any = any;
 exports.find = find;
 exports.findIndex = findIndex;
-exports.getIn = getIn;
 exports.hasIn = hasIn;
 exports.isEqual = isEqual;
 
-var _is = __webpack_require__(1);
+var _is = __webpack_require__(2);
 
 var is = _interopRequireWildcard(_is);
 
+var _getIn2 = __webpack_require__(1);
+
+var _getIn3 = _interopRequireDefault(_getIn2);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Returns the Objects keys
@@ -897,26 +956,6 @@ function findIndex(arr, compare, ctx) {
 }
 
 /**
- * Get a nested value of an object or return
- * @param  {Array<String>}  path
- * @param  {Object}         obj
- * @param  {Mixed}          defaultValue
- * @return {Mixed}
- */
-function getIn(path, obj, defaultValue) {
-  path = path.slice(0);
-  var result = Object.assign({}, obj);
-  while (path.length > 0) {
-    var key = path.shift();
-    result = result[key];
-    if ((typeof result === 'undefined' ? 'undefined' : _typeof(result)) !== 'object' && path.length > 0) {
-      return defaultValue;
-    }
-  }
-  return result;
-}
-
-/**
  * Returns true if an object has the matched value,
  * otherwise false
  * @param  {Object}         obj
@@ -924,7 +963,7 @@ function getIn(path, obj, defaultValue) {
  * @return {Mixed}
  */
 function hasIn(obj, path) {
-  return is.not.undef(getIn(obj, path));
+  return is.not.undef((0, _getIn3.default)(obj, path));
 }
 
 /**
@@ -964,7 +1003,7 @@ function isEqual(a, b) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -994,7 +1033,7 @@ function parseUrl(url) {
 module.exports = parseUrl;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1128,7 +1167,7 @@ function sortByDates() {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1267,7 +1306,7 @@ function convertHTMLToString(str) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1285,7 +1324,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.KeyEvents = exports.NativeFileUploadDialog = exports.ParseUrl = exports.Collections = exports.Sort = exports.Utils = exports.Strings = undefined;
 
-var _strings = __webpack_require__(7);
+var _strings = __webpack_require__(8);
 
 var strings = _interopRequireWildcard(_strings);
 
@@ -1293,23 +1332,23 @@ var _utils = __webpack_require__(0);
 
 var utils = _interopRequireWildcard(_utils);
 
-var _sort = __webpack_require__(6);
+var _sort = __webpack_require__(7);
 
 var sort = _interopRequireWildcard(_sort);
 
-var _collections = __webpack_require__(4);
+var _collections = __webpack_require__(5);
 
 var collections = _interopRequireWildcard(_collections);
 
-var _parseUrl = __webpack_require__(5);
+var _parseUrl = __webpack_require__(6);
 
 var _parseUrl2 = _interopRequireDefault(_parseUrl);
 
-var _NativeFileUploadDialog = __webpack_require__(3);
+var _NativeFileUploadDialog = __webpack_require__(4);
 
 var _NativeFileUploadDialog2 = _interopRequireDefault(_NativeFileUploadDialog);
 
-var _KeyEvents = __webpack_require__(2);
+var _KeyEvents = __webpack_require__(3);
 
 var _KeyEvents2 = _interopRequireDefault(_KeyEvents);
 
@@ -1328,7 +1367,7 @@ var NativeFileUploadDialog = exports.NativeFileUploadDialog = _NativeFileUploadD
 var KeyEvents = exports.KeyEvents = _KeyEvents2.default;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1341,7 +1380,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = pluck;
 
-var _is = __webpack_require__(1);
+var _is = __webpack_require__(2);
 
 var is = _interopRequireWildcard(_is);
 
@@ -1370,7 +1409,7 @@ function pluck(src, fields) {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
