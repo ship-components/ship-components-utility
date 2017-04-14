@@ -102,7 +102,8 @@ describe('Collections Library',  () => {
    });
 
    describe('getIn and hasIn methods', () => {
-      const {getIn, hasIn} = require('../collections');
+      const {hasIn, getIn} = require('../collections');
+
       const testMap = {
          obj1: {
             name: 'test1',
@@ -134,13 +135,40 @@ describe('Collections Library',  () => {
       test('should return true if the hasIn found the match', () => {
          let result1 = hasIn(['obj1', 'name'], testMap); // true
          let result2 = hasIn(['obj2', 'value'], testMap); // true
-         let result3 = hasIn(['obj2', 'obj3', 'desc'], testMap); // false
+         let result3 = hasIn(['obj2', 'obj3', 'desc', 'bad'], testMap); // false
          let result4 = hasIn(['obj4', 'name'], testMap); // false
 
          expect(result1).toEqual(true);
          expect(result2).toEqual(true);
          expect(result3).toEqual(false);
          expect(result4).toEqual(false);
+      });
+
+      test('it should return the default value if it can not find the path', ()=>{
+        let src = {
+          App: {
+            initial: {}
+          }
+        }
+        const defaultValue = [];
+        const result = getIn(['App', 'initial', 'value'], src, defaultValue);
+        expect(result).toBe(defaultValue);
+      });
+
+      test('it should return the default value if the src is not an object or path is not an Array', ()=>{
+        const defaultValue = [];
+        const notAnObject = getIn([], void 0, defaultValue);
+        const notAnArray = getIn({}, {}, defaultValue);
+        expect(notAnObject).toBe(defaultValue);
+        expect(notAnArray).toBe(defaultValue);
+      });
+
+      test('if the path is empty return the src', ()=>{
+        const src = {
+          test: true
+        };
+        const result = getIn([], src);
+        expect(result).toBe(src);
       });
    });
 

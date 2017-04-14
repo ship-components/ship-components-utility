@@ -1,4 +1,15 @@
 import * as is from './is';
+import getIn from './getIn.js';
+
+/**
+ * Get a nested value of an object or return
+ * @alias
+ * @param  {Array<String>}  path
+ * @param  {Object}         obj
+ * @param  {Mixed}          defaultValue
+ * @return {Mixed}
+ */
+ export {default as getIn} from './getIn';
 
 /**
  * Returns the Objects keys
@@ -147,26 +158,6 @@ export function findIndex(arr, compare, ctx) {
     }
   }
   return -1;
-}
-
-/**
- * Get a nested value of an object or return
- * @param  {Array<String>}  path
- * @param  {Object}         obj
- * @param  {Mixed}          defaultValue
- * @return {Mixed}
- */
-export function getIn(path, obj, defaultValue) {
-  path = path.slice(0);
-  var result = Object.assign({}, obj);
-  while (path.length > 0) {
-    var key = path.shift();
-    result = result[key];
-    if (typeof result !== 'object' && path.length > 0) {
-      return defaultValue;
-    }
-  }
-  return result;
 }
 
 /**
