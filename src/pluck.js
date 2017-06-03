@@ -16,7 +16,7 @@ export default function pluck(src, fields) {
   }
 
   let result = {};
-  fields.forEach(key => {
+  fields.forEach((key) => {
     if (key in src) {
       result[key] = src[key];
     }

@@ -36,7 +36,7 @@ export function toArray(val) {
     return val;
   }
   let objKeys = keys(val);
-  return objKeys.map((keyName) => val[keyName]);
+  return objKeys.map(keyName => val[keyName]);
 }
 
 /**
