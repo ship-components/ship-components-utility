@@ -639,6 +639,7 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
+* 1.2.2 - Adds a pre-commit hook that will run jest test and eslint before for the changed files. NOTE: please make the precommit hook to be executable for the first time (chmod +x ./.git/hooks/pre-commit)
 * 1.2.1 - Fixed an issue in getIn where it wasn't returning the defaultValue as expected
 * 1.2.0 - Added pluck function to Util and added watch:test command
 * 1.1.0 - Adds a deepCopy function to utility library to copy (recursively) objects, array of objects or date objects.
