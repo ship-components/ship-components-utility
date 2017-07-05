@@ -74,6 +74,7 @@
     "grunt-coveralls": "^1.0.1",
     "grunt-eslint": "^19.0.0",
     "grunt-webpack": "^2.0.1",
+    "istanbul-lib-instrument": "^1.7.3",
     "jest": "^19.0.2",
     "jest-cli": "^19.0.2",
     "strict-loader": "^1.1.0",
