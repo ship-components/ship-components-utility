@@ -18,8 +18,8 @@ import getIn from './getIn.js';
  */
 export function keys(obj) {
   let result = [];
-  for(let key in obj) {
-    if(obj.hasOwnProperty(key)) {
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
       result.push(key);
     }
   }
@@ -32,7 +32,7 @@ export function keys(obj) {
  * @return {Array}  result
  */
 export function toArray(val) {
-  if(is.not.obj(val)) {
+  if (is.not.obj(val)) {
     return val;
   }
   let objKeys = keys(val);
@@ -46,13 +46,13 @@ export function toArray(val) {
  * @param  {func}   fn
  */
 export function each(val, fn) {
-  if(is.obj(val)) {
+  if (is.obj(val)) {
     val = toArray(val);
   }
   if (is.not.arr(val)) {
     throw new TypeError('InvalidArgument: Not iterable');
   }
-  for(let i, l = val.length; i < l; i++) {
+  for (let i, l = val.length; i < l; i++) {
     fn.call(val, val[i], i, val);
   }
 }
@@ -65,7 +65,7 @@ export function each(val, fn) {
 export function size(val) {
   if (is.obj(val)) {
     return keys(val).length;
-  } else if(is.arr(val)) {
+  } else if (is.arr(val)) {
     return val.length;
   } else {
     return -1;
@@ -78,10 +78,10 @@ export function size(val) {
  * @return {mixed}
  */
 export function searchFn(val) {
-  if(is.func(val)) {
+  if (is.func(val)) {
     return val;
   } else if (is.obj(val)) {
-    return function(item) {
+    return function(item) { // eslint-disable-line func-names
       if (is.not.obj(item)) {
         return false;
       }
@@ -106,7 +106,7 @@ export function searchFn(val) {
  */
 export function any(values, compare) {
   // If not array or object, return
-  if(typeof values !== 'object') {
+  if (typeof values !== 'object') {
     return false;
   }
 
@@ -114,7 +114,7 @@ export function any(values, compare) {
     values = toArray(values);
   }
   for (let i = 0, l = values.length; i < l; i++) {
-    if(searchFn(compare).call(values, values[i], i, values) === true) {
+    if (searchFn(compare).call(values, values[i], i, values) === true) {
       return true;
     }
   }
@@ -129,7 +129,7 @@ export function any(values, compare) {
  * @return {Mixed}
  */
 export function find(arr, compare, ctx) {
-  if(is.not.arr(arr)) {
+  if (is.not.arr(arr)) {
     return arr;
   }
 
@@ -149,7 +149,7 @@ export function find(arr, compare, ctx) {
  * @return {Number} -1 if can't find it
  */
 export function findIndex(arr, compare, ctx) {
-  if(is.not.arr(arr)) {
+  if (is.not.arr(arr)) {
     return arr;
   }
   for (let i = 0, l = arr.length; i < l; i++) {
