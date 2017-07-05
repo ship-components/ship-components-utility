@@ -53,7 +53,7 @@ export function capitalize(str) {
  * @return    {String}
  */
 export function titleCase(str) {
-  return str.split(/\s/g).map((word) => capitalize(word, true)).join(' ');
+  return str.split(/\s/g).map(word => capitalize(word, true)).join(' ');
 }
 
 /**
