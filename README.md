@@ -639,6 +639,7 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
+* 1.3.1 - Updates jest and babel-eslint to latest version.
 * 1.3.0 - Updates the babel presets from latest to env - latest has been deprecated.
 * 1.2.1 - Fixed an issue in getIn where it wasn't returning the defaultValue as expected
 * 1.2.0 - Added pluck function to Util and added watch:test command
