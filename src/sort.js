@@ -101,7 +101,7 @@ export function sortByDates() {
    * @param     {Object}    b
    * @return    {Number}
    */
-  return function(a, b) {
+  return function(a, b) { // eslint-disable-line func-names
     // Loop through each prop we want to sort by
     let index = -1;
     while (++index < props.length) {

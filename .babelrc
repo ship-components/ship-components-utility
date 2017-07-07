@@ -1,3 +1,15 @@
 {
-  "presets": ["latest"]
+  "presets": ["env"],
+  "env": {
+    "test": {
+      "plugins": [
+        ["istanbul", {
+            "exclude": [
+              "**/*-spec.js"
+            ]
+          }
+        ]
+      ]
+    }
+  }
 }

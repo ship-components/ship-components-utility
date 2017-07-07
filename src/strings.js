@@ -74,7 +74,7 @@ export function toUnderscoreCase(str) {
   if (!str) {
     return str;
   }
-  return str.replace(/\.?([A-Z])/g, function(x,y){
+  return str.replace(/\.?([A-Z])/g, function(x, y) { // eslint-disable-line func-names
     return '_' + y.toLowerCase();
   }).replace(/^_/, '').toUpperCase();
 }
