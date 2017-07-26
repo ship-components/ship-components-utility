@@ -24,13 +24,13 @@ describe('pluck', () => {
   });
 
   test('it should throw an error if the src argument is not an object', () => {
-    expect(()=>{
+    expect(() => {
       pluck(true, ['key']);
     }).toThrow();
   });
 
   test('it should throw an error if the fields argument is not an array', () => {
-    expect(()=>{
+    expect(() => {
       pluck({}, { key: true});
     }).toThrow();
   });

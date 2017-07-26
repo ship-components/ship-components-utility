@@ -11,7 +11,9 @@ export {default as pluck} from './pluck';
  * @return    {Number}    size
  */
 export function objectSize(obj) {
-  let size = 0, key;
+  let size = 0;
+  let key;
+
     for (key in obj) {
       if (obj.hasOwnProperty(key)) {
         size++;
@@ -194,7 +196,7 @@ export function deepCopy(obj) {
  * @return {Bool}
  */
 export function isIEBrowser(prop) {
-  switch(prop) {
+  switch (prop) {
     case 'ie10':
       return navigator.appVersion.indexOf('MSIE 10') !== -1 && navigator.appVersion.indexOf('Trident') === -1;
     case 'ie11':

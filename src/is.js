@@ -1,6 +1,6 @@
 function isType(type, not = false, val) {
   let result;
-  if (type === 'Undefined'){
+  if (type === 'Undefined') {
     // If value is set to the global `undefined` we'll get the wrong result.
     // Minifiers may do this
     result = typeof val === 'undefined';
@@ -41,10 +41,10 @@ function iter(not, val) {
 
 export var iterable = iter.bind(null, false);
 
-export var not = (function(){
+export var not = (function() { // eslint-disable-line func-names
   let fns = {};
   for (let key in keys) {
-    if(keys.hasOwnProperty(key)) {
+    if (keys.hasOwnProperty(key)) {
       fns[key] = isType.bind(null, keys[key], true);
     }
   }

@@ -20,7 +20,7 @@ export default class NativeFileUploadDialog {
     this.isEdge = isIEBrowser('edge');
     // onChange event listener
     // Based on browser type
-    if(this.isIE10 && this.input.attachEvent) {
+    if (this.isIE10 && this.input.attachEvent) {
       // IE 10
       this.input.attachEvent('onchange', this.onChange.bind(this), false);
     } else {
@@ -69,7 +69,7 @@ export default class NativeFileUploadDialog {
     // Reason: onChange event fires first
     // Gets the files (IF ANY), then
     // thenWith function fires
-    if((this.isIE10 || this.isIE11 || this.isEdge) && typeof this.files !== 'undefined') {
+    if ((this.isIE10 || this.isIE11 || this.isEdge) && typeof this.files !== 'undefined') {
       this._callback(this.files);
     }
   }
@@ -78,7 +78,7 @@ export default class NativeFileUploadDialog {
     this.event = event;
 
     // Grab the uploaded files
-    if(this.isIE10) {
+    if (this.isIE10) {
       // IE10
       this.files = event.srcElement.files;
     } else {
