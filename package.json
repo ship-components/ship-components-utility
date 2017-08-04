@@ -88,6 +88,6 @@
     "jest-cli": "^19.0.2",
     "lint-staged": "^3.6.1",
     "strict-loader": "^1.1.0",
-    "webpack": "^2.2.1"
+    "webpack": "^3.4.0"
   }
 }
