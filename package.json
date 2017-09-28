@@ -70,7 +70,7 @@
     "babel-loader": "^6.3.2",
     "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-env": "^1.6.0",
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "eslint": "^3.16.1",
     "eslint-config-ship-components": "^1.4.2",
     "eslint-loader": "^1.6.3",
