@@ -85,7 +85,7 @@
     "husky": "^0.13.4",
     "jest": "^20.0.1",
     "istanbul-lib-instrument": "^1.7.3",
-    "jest-cli": "^19.0.2",
+    "jest-cli": "^22.0.5",
     "lint-staged": "^3.6.1",
     "strict-loader": "^1.1.0",
     "webpack": "^2.2.1"
