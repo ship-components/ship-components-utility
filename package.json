@@ -82,7 +82,7 @@
     "grunt-coveralls": "^1.0.1",
     "grunt-eslint": "^19.0.0",
     "grunt-webpack": "^2.0.1",
-    "husky": "^0.13.4",
+    "husky": "^0.15.0-rc.2",
     "jest": "^20.0.1",
     "istanbul-lib-instrument": "^1.7.3",
     "jest-cli": "^19.0.2",
