@@ -9,7 +9,7 @@
     "lint": "./node_modules/eslint/bin/eslint.js src/**/*.js",
     "test": "npm run lint && ./node_modules/jest-cli/bin/jest.js --coverage",
     "watch:test": "./node_modules/jest-cli/bin/jest.js --coverage --watch",
-    "coverage": "./node_modules/jest-cli/bin/jest.js --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v",
+    "coverage": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js -v",
     "travis": "npm install trevor && trevor"
   },
   "lint-staged": {
@@ -89,8 +89,5 @@
     "lint-staged": "^6.0.0",
     "strict-loader": "^1.1.0",
     "webpack": "^3.10.0"
-  },
-  "dependencies": {
-    "trevor": "^2.3.0"
   }
 }
