@@ -115,9 +115,9 @@ describe('Utils Library', () => {
       });
       test('should envoke the callback function if passed in', () => {
         const test1 = [1, 2, 3];
-        const test2 = [1,2];
-        const callback = (arr1, arr2) => arr1.length > arr2.length;
-        expect(isEqualArray(test1, test2, callback)).toEqual(true);
+        const test2 = [1, 2, 4];
+        const callback = (element, index) => element === test2[index];
+        expect(isEqualArray(test1, test2, callback)).toEqual(false);
       });
     });
 

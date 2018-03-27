@@ -262,17 +262,13 @@ export function detectIEVersion() {
  */
 export function isEqualArray(arr1, arr2, cb) {
   // return false if both are not an array
-  if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
+  if (!Array.isArray(arr1) || !Array.isArray(arr2) || arr1.length !== arr2.length) {
     return false;
   }
 
-  // envoke the callback function if there is any
-  if (typeof cb === 'function') {
-    return cb(arr1, arr2);
+  if (typeof cb !== 'function') {
+    cb = (element, index) => element === arr2[index];
   }
 
-  return (
-    arr1.length === arr2.length &&
-    arr1.every((element, index) => element === arr2[index])
-  );
+  return arr1.every(cb);
 }
