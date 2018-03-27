@@ -9,7 +9,6 @@
  *    https://github.com/webpack/grunt-webpack
  */
 
-var webpack = require('webpack');
 var path = require('path');
 
 module.exports = function(grunt) {
@@ -34,9 +33,9 @@ module.exports = function(grunt) {
         filename: '[name].min.js'
       },
 
-      plugins: [
-        new webpack.optimize.UglifyJsPlugin()
-      ]
+      optimization: {
+        minimize: true
+      }
     }
   });
 
@@ -59,8 +58,8 @@ module.exports = function(grunt) {
 
   // Remove Extract Plugin. Gotta clone to prevent changing above config
   serverOptions.module = Object.assign({}, serverOptions.module);
-  serverOptions.module.loaders = serverOptions.module.loaders.slice(0);
-  serverOptions.module.loaders.splice(serverOptions.module.loaders.length - 1);
+  serverOptions.module.rules = serverOptions.module.rules.slice(0);
+  serverOptions.module.rules.splice(serverOptions.module.rules.length - 1);
 
   grunt.loadNpmTasks('grunt-webpack');
 };
