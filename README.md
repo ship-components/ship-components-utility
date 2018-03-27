@@ -37,7 +37,9 @@ Here is the list of utilities you can use.
   * [compareDates](#comparedates)
   * [sortBy](#sortby)
   * [sortByDates](#sortbydates)
-* [Strings](#strings)
+* [Strings](
+  isEqual(Object1, Object2);#strings)
+isEqual(Object1, Object2);
   * [hash](#hash)
   * [slugify](#slugify)
   * [capitalize](#capitalize)
@@ -222,6 +224,7 @@ hasIn(['obj1', 'obj2', 'name'], testMap); // true
  * @param  {Mixed} two
  * @return {Boolean}
  */
+ isEqual(Object1, Object2);
 ```
 
 ### KeyEvents
