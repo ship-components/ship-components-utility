@@ -101,12 +101,23 @@ describe('Utils Library', () => {
 
     // isEqualArray Function
     describe('isEqualArray Method', () => {
+      test('should return false if one of the inputs are not an array', () => {
+        const test1 = [1, 2, 3];
+        const test2 = 'array';
+        expect(isEqualArray(test1, test2)).toEqual(false);
+      });
       test('should return true if 2 arrays are equal', () => {
         const testArray1 = [1, 2, 3];
         const testArray2 = [1, 2, 3];
         const testArray3 = ['1', '2'];
         expect(isEqualArray(testArray1, testArray2)).toEqual(true);
         expect(isEqualArray(testArray1, testArray3)).toEqual(false);
+      });
+      test('should envoke the callback function if passed in', () => {
+        const test1 = [1, 2, 3];
+        const test2 = [1,2];
+        const callback = (arr1, arr2) => arr1.length > arr2.length;
+        expect(isEqualArray(test1, test2, callback)).toEqual(true);
       });
     });
 

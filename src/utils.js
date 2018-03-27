@@ -257,9 +257,20 @@ export function detectIEVersion() {
  * Shallow comparison between 2 arrays
  * @param  {Array} arr1
  * @param  {Array} arr2
+ * @param  {Function} cb {optional}
  * @return {Bool}
  */
-export function isEqualArray(arr1, arr2) {
+export function isEqualArray(arr1, arr2, cb) {
+  // return false if both are not an array
+  if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
+    return false;
+  }
+
+  // envoke the callback function if there is any
+  if (typeof cb === 'function') {
+    return cb(arr1, arr2);
+  }
+
   return (
     arr1.length === arr2.length &&
     arr1.every((element, index) => element === arr2[index])

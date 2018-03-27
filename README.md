@@ -501,8 +501,10 @@ const {isArray} = require('ship-components-utility').Utils;
 ```js
 /**
  * Shallow comparison between 2 arrays
+ * or envoke the callback function
  * @param  {Array} arr1
  * @param  {Array} arr2
+ * @param  {Function} callback {optional}
  * @return {Bool}
  */
 const {isEqualArray} = require('ship-components-utility').Utils;
