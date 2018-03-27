@@ -22,7 +22,7 @@ describe('Utils Library', () => {
   });
 
   describe('Data Type Checking', () => {
-    const {isObject, isFunction, isString, isArray, isUndefined} = require('../utils');
+    const {isObject, isFunction, isString, isArray, isEqualArray, isUndefined} = require('../utils');
     let testObject;
     let testString;
     let testNumber;
@@ -96,6 +96,17 @@ describe('Utils Library', () => {
         expect(isArray(testObject)).toEqual(false);
         expect(isArray(testString)).toEqual(false);
         expect(isArray(testUndefined)).toEqual(false);
+      });
+    });
+
+    // isEqualArray Function
+    describe('isEqualArray Method', () => {
+      test('should return true if 2 arrays are equal', () => {
+        const testArray1 = [1, 2, 3];
+        const testArray2 = [1, 2, 3];
+        const testArray3 = ['1', '2'];
+        expect(isEqualArray(testArray1, testArray2)).toEqual(true);
+        expect(isEqualArray(testArray1, testArray3)).toEqual(false);
       });
     });
 
