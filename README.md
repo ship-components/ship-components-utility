@@ -37,7 +37,9 @@ Here is the list of utilities you can use.
   * [compareDates](#comparedates)
   * [sortBy](#sortby)
   * [sortByDates](#sortbydates)
-* [Strings](#strings)
+* [Strings](
+  isEqual(Object1, Object2);#strings)
+isEqual(Object1, Object2);
   * [hash](#hash)
   * [slugify](#slugify)
   * [capitalize](#capitalize)
@@ -54,6 +56,7 @@ Here is the list of utilities you can use.
   * [isFunction](#isfunction)
   * [isString](#isstring)
   * [isArray](#isarray)
+  * [isEqualArray](#isequalarray)
   * [isUndefined](#isundefined)
   * [bind](#bind)
   * [bindAll](#bindall)
@@ -222,6 +225,7 @@ hasIn(['obj1', 'obj2', 'name'], testMap); // true
  * @param  {Mixed} two
  * @return {Boolean}
  */
+ isEqual(Object1, Object2);
 ```
 
 ### KeyEvents
@@ -493,6 +497,19 @@ const {isString} = require('ship-components-utility').Utils;
 const {isArray} = require('ship-components-utility').Utils;
 ```
 
+#### isEqualArray
+```js
+/**
+ * Shallow comparison between 2 arrays
+ * or envoke the callback function
+ * @param  {Array} arr1
+ * @param  {Array} arr2
+ * @param  {Function} callback {optional}
+ * @return {Bool}
+ */
+const {isEqualArray} = require('ship-components-utility').Utils;
+```
+
 #### isUndefined
 ```js
 /**
@@ -639,6 +656,7 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
+* 1.5.0 - Adds isEqualArray function to Utils to shallow compare 2 arrays.
 * 1.4.0 - updates dev dependencies to latest version (webpack, babel, eslint, jest, coveralls, eslint-config-ship-components).
 * 1.3.2 - Removes the unnecessary babel plugins.
 * 1.3.1 - Updates jest and babel-eslint to latest version.
