@@ -654,6 +654,7 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
+* 1.5.0 - Adds isEqualArray function to Utils to shallow compare 2 arrays.
 * 1.4.0 - updates dev dependencies to latest version (webpack, babel, eslint, jest, coveralls, eslint-config-ship-components).
 * 1.3.2 - Removes the unnecessary babel plugins.
 * 1.3.1 - Updates jest and babel-eslint to latest version.
