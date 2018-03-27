@@ -252,3 +252,16 @@ export function detectIEVersion() {
   // other browser
   return false;
 }
+
+/**
+ * Shallow comparison between 2 arrays
+ * @param  {Array} arr1
+ * @param  {Array} arr2
+ * @return {Bool}
+ */
+export function isEqualArray(arr1, arr2) {
+  return (
+    arr1.length === arr2.length &&
+    arr1.every((element, index) => element === arr2[index])
+  );
+}

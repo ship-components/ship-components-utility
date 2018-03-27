@@ -56,6 +56,7 @@ isEqual(Object1, Object2);
   * [isFunction](#isfunction)
   * [isString](#isstring)
   * [isArray](#isarray)
+  * [isEqualArray](#isequalarray)
   * [isUndefined](#isundefined)
   * [bind](#bind)
   * [bindAll](#bindall)
@@ -494,6 +495,17 @@ const {isString} = require('ship-components-utility').Utils;
  * @return    {Bool}
  */
 const {isArray} = require('ship-components-utility').Utils;
+```
+
+#### isEqualArray
+```js
+/**
+ * Shallow comparison between 2 arrays
+ * @param  {Array} arr1
+ * @param  {Array} arr2
+ * @return {Bool}
+ */
+const {isEqualArray} = require('ship-components-utility').Utils;
 ```
 
 #### isUndefined
