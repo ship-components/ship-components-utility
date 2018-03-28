@@ -656,6 +656,7 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
+* 2.0.0-beta.1 - Updates Webpack to 4.3.0 as well as eslint-loader, grunt-coveralls and lint-stages to latest.
 * 1.5.0 - Adds isEqualArray function to Utils to shallow compare 2 arrays.
 * 1.4.0 - updates dev dependencies to latest version (webpack, babel, eslint, jest, coveralls, eslint-config-ship-components).
 * 1.3.2 - Removes the unnecessary babel plugins.
