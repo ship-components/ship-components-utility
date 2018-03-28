@@ -2,7 +2,7 @@
 
 [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) set of utilities. Exports a commonjs module that can be used with [webpack](http://webpack.github.io/). Source is in ES6 and an ES5 version is available using [Babel](https://babeljs.io/).
 
-[![npm](https://img.shields.io/npm/v/ship-components-utility.svg?maxAge=2592000)](https://www.npmjs.com/package/ship-components-utility)
+[![npm](https://img.shields.io/npm/v/ship-components-utility.svg)](https://www.npmjs.com/package/ship-components-utility)
 [![Build Status](http://img.shields.io/travis/ship-components/ship-components-utility/master.svg?style=flat)](https://travis-ci.org/ship-components/ship-components-utility)
 [![Coverage](http://img.shields.io/coveralls/ship-components/ship-components-utility.svg?style=flat)](https://coveralls.io/github/ship-components/ship-components-utility)
 [![devDependencies](https://img.shields.io/david/dev/ship-components/ship-components-utility.svg?style=flat)](https://david-dm.org/ship-components/ship-components-utility?type=dev)
@@ -37,7 +37,9 @@ Here is the list of utilities you can use.
   * [compareDates](#comparedates)
   * [sortBy](#sortby)
   * [sortByDates](#sortbydates)
-* [Strings](#strings)
+* [Strings](
+  isEqual(Object1, Object2);#strings)
+isEqual(Object1, Object2);
   * [hash](#hash)
   * [slugify](#slugify)
   * [capitalize](#capitalize)
@@ -54,6 +56,7 @@ Here is the list of utilities you can use.
   * [isFunction](#isfunction)
   * [isString](#isstring)
   * [isArray](#isarray)
+  * [isEqualArray](#isequalarray)
   * [isUndefined](#isundefined)
   * [bind](#bind)
   * [bindAll](#bindall)
@@ -222,6 +225,7 @@ hasIn(['obj1', 'obj2', 'name'], testMap); // true
  * @param  {Mixed} two
  * @return {Boolean}
  */
+ isEqual(Object1, Object2);
 ```
 
 ### KeyEvents
@@ -493,6 +497,19 @@ const {isString} = require('ship-components-utility').Utils;
 const {isArray} = require('ship-components-utility').Utils;
 ```
 
+#### isEqualArray
+```js
+/**
+ * Shallow comparison between 2 arrays
+ * or envoke the callback function
+ * @param  {Array} arr1
+ * @param  {Array} arr2
+ * @param  {Function} callback {optional}
+ * @return {Bool}
+ */
+const {isEqualArray} = require('ship-components-utility').Utils;
+```
+
 #### isUndefined
 ```js
 /**
@@ -639,6 +656,8 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
+* 1.5.0 - Adds isEqualArray function to Utils to shallow compare 2 arrays.
+* 1.4.0 - updates dev dependencies to latest version (webpack, babel, eslint, jest, coveralls, eslint-config-ship-components).
 * 1.3.2 - Removes the unnecessary babel plugins.
 * 1.3.1 - Updates jest and babel-eslint to latest version.
 * 1.3.0 - Updates the babel presets from latest to env - latest has been deprecated.
