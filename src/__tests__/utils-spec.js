@@ -417,4 +417,28 @@ describe('Utils Library', () => {
       expect(result).toBe(13);
     });
   });
+
+  describe('throttling', () => {
+    test('prevents function spamming', function() {
+      const {throttle} = require('../utils');
+      
+      // test value and test function
+      var x = 0;
+      function xPlusPlus() { x++; }
+      
+      // throttle x++ to run once per second (starting at 0ms)
+      const throttledFn = throttle(xPlusPlus, 1000);
+      const start = Date.now();
+      const someLargeNumber = 4356;
+      for (let i = 0; i < someLargeNumber; i++) {
+        throttledFn();
+      }
+      const end = Date.now();
+      const totalSecondsPassed = (end - start) % 1000;
+
+      // x could only have been incremented once per 1000ms
+      // or "total seconds elapsed + 1"
+      expect(x).toBeLessThanOrEqual(totalSecondsPassed + 1);
+    })
+  })
 });
