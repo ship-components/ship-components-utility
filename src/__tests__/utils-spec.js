@@ -441,4 +441,12 @@ describe('Utils Library', () => {
       expect(x).toBeLessThanOrEqual(totalSecondsPassed + 1);
     })
   })
+
+  describe('getScrollTop', () => {
+    const {getScrollTop} = require('../utils');
+    test('returns a number', () => {
+      const retVal = getScrollTop();
+      expect(typeof retVal).toEqual('number');
+    });
+  });
 });
