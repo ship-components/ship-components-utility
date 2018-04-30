@@ -419,26 +419,22 @@ describe('Utils Library', () => {
   });
 
   describe('throttling', () => {
-    test('prevents function spamming', function() {
-      const {throttle} = require('../utils');
-      
-      // test value and test function
-      var x = 0;
-      function xPlusPlus() { x++; }
-      
-      // throttle x++ to run once per second (starting at 0ms)
-      const throttledFn = throttle(xPlusPlus, 1000);
-      const start = Date.now();
-      const someLargeNumber = 4356;
-      for (let i = 0; i < someLargeNumber; i++) {
-        throttledFn();
-      }
-      const end = Date.now();
-      const totalSecondsPassed = (end - start) % 1000;
+    const {throttle} = require('../utils');
+    test('prevents function spamming', function(done) {
+      const testFn = jest.fn()
+      const throttleVal = 100;
+      const elapsedTime = 1000;
+      const throttledFn = throttle(testFn, throttleVal);
+     
+      const interval = setInterval(() => {
+        throttledFn()
+      },1);
 
-      // x could only have been incremented once per 1000ms
-      // or "total seconds elapsed + 1"
-      expect(x).toBeLessThanOrEqual(totalSecondsPassed + 1);
+      setTimeout(function() {
+        clearInterval(interval);
+        expect(testFn).toHaveBeenCalledTimes(elapsedTime/throttleVal);
+        done();
+      }, elapsedTime);
     })
   })
 
