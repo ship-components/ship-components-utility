@@ -442,7 +442,28 @@ describe('Utils Library', () => {
     const {getScrollTop} = require('../utils');
     test('returns a number', () => {
       const retVal = getScrollTop();
-      expect(typeof retVal).toEqual('number');
+      expect(retVal).toEqual(0);
+    });
+
+    test('fallsback to document element or body if pageYOffset is undefined', () => {
+      global.window.pageYOffset = void 0;
+      const retVal = getScrollTop();
+      expect(retVal).toEqual(0);
+
+      // reset value
+      global.window.pageYOffset = 0;
+    });
+
+    test('Throws an error when scrollTop cannot be found', () => {
+      global.window.pageYOffset = void 0;
+      global.document.documentElement.scrollTop = void 0;
+      global.document.body.scrollTop = void 0;
+      expect(getScrollTop).toThrowError();
+
+      // reset globals just in case
+      global.window.pageYOffset = 0;
+      global.document.documentElement.scrollTop = 0;
+      global.document.body.scrollTop = 0;
     });
   });
 });

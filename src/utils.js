@@ -333,10 +333,10 @@ export function throttle(func, wait, options) {
  */
 export function getScrollTop() {
   let scrollTop = window.pageYOffset;
-  if (typeof scrollTop === undefined) {
+  if (typeof scrollTop === 'undefined') {
     scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
   }
-  if (typeof scrollTop === undefined) {
+  if (isNaN(scrollTop) || typeof scrollTop === 'undefined') {
     throw new Error('Unable to retrieve scrollTop. :(');
   }
   return scrollTop;
