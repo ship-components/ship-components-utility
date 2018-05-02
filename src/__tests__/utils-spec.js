@@ -423,7 +423,7 @@ describe('Utils Library', () => {
     test('prevents function spamming', function(done) {
       const testFn = jest.fn()
       const throttleVal = 100;
-      const elapsedTime = 1000;
+      const elapsedTime = 1050;
       const throttledFn = throttle(testFn, throttleVal);
      
       const interval = setInterval(() => {
@@ -432,7 +432,8 @@ describe('Utils Library', () => {
 
       setTimeout(function() {
         clearInterval(interval);
-        expect(testFn).toHaveBeenCalledTimes(elapsedTime/throttleVal);
+        const expectedVal = Math.ceil(elapsedTime/throttleVal);
+        expect(testFn).toHaveBeenCalledTimes(expectedVal);
         done();
       }, elapsedTime);
     })
