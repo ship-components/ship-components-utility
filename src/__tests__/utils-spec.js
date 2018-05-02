@@ -432,8 +432,13 @@ describe('Utils Library', () => {
 
       setTimeout(function() {
         clearInterval(interval);
+        // We expect that the function has run this number of times...
         const expectedVal = Math.ceil(elapsedTime/throttleVal);
-        expect(testFn).toHaveBeenCalledTimes(expectedVal);
+
+        // However it is logically/technically possible it to have lagged
+        // and not yet run, so we allow the actual result to be off by -1 (NOT +1).
+        const lamba = expectedVal - testFn.mock.calls.length;
+        expect(lamba).toBeLessThanOrEqual(1);
         done();
       }, elapsedTime);
     })
