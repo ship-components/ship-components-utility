@@ -1,6 +1,6 @@
 {
   "name": "ship-components-utility",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "description": "Javascript set of utilities",
   "main": "src/index.js",
   "scripts": {
@@ -89,5 +89,8 @@
     "lint-staged": "^6.0.0",
     "strict-loader": "^1.1.0",
     "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "trevor": "^2.3.0"
   }
 }

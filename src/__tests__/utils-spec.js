@@ -417,4 +417,59 @@ describe('Utils Library', () => {
       expect(result).toBe(13);
     });
   });
+
+  describe('throttling', () => {
+    const {throttle} = require('../utils');
+    test('prevents function spamming', function(done) {
+      const testFn = jest.fn()
+      const throttleVal = 100;
+      const elapsedTime = 1050;
+      const throttledFn = throttle(testFn, throttleVal);
+     
+      const interval = setInterval(() => {
+        throttledFn()
+      },1);
+
+      setTimeout(function() {
+        clearInterval(interval);
+        // We expect that the function has run this number of times...
+        const expectedVal = Math.ceil(elapsedTime/throttleVal);
+
+        // However it is logically/technically possible it to have lagged
+        // and not yet run, so we allow the actual result to be off by -1 (NOT +1).
+        const lamba = expectedVal - testFn.mock.calls.length;
+        expect(lamba).toBeLessThanOrEqual(1);
+        done();
+      }, elapsedTime);
+    })
+  })
+
+  describe('getScrollTop', () => {
+    const {getScrollTop} = require('../utils');
+    test('returns a number', () => {
+      const retVal = getScrollTop();
+      expect(retVal).toEqual(0);
+    });
+
+    test('fallsback to document element or body if pageYOffset is undefined', () => {
+      global.window.pageYOffset = void 0;
+      const retVal = getScrollTop();
+      expect(retVal).toEqual(0);
+
+      // reset value
+      global.window.pageYOffset = 0;
+    });
+
+    test('Throws an error when scrollTop cannot be found', () => {
+      global.window.pageYOffset = void 0;
+      global.document.documentElement.scrollTop = void 0;
+      global.document.body.scrollTop = void 0;
+      expect(getScrollTop).toThrowError();
+
+      // reset globals just in case
+      global.window.pageYOffset = 0;
+      global.document.documentElement.scrollTop = 0;
+      global.document.body.scrollTop = 0;
+    });
+  });
 });

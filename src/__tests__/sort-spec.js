@@ -6,10 +6,10 @@ describe('Sort Library', () => {
 
     test('should return true if 32bit integer generated', () => {
       let diff = 5;
-      let date1 = Date.now() + diff;
-      let date2 = Date.now();
+      let date1 = Date.now();
+      let date2 = date1 + diff;
 
-      let result = compareDates(date1, date2);
+      let result = compareDates(date2, date1);
 
       expect(typeof result).toEqual('number');
       expect(result).toEqual(diff);
