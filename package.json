@@ -55,7 +55,8 @@
   "jest": {
     "transform": {
       "^.+\\.js?$": "babel-jest"
-    }
+    },
+    "testURL": "http://localhost/"
   },
   "babelJest": {
     "include": [
