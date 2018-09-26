@@ -55,7 +55,8 @@
   "jest": {
     "transform": {
       "^.+\\.js?$": "babel-jest"
-    }
+    },
+    "testURL": "http://localhost/"
   },
   "babelJest": {
     "include": [
@@ -82,7 +83,7 @@
     "grunt-coveralls": "^1.0.1",
     "grunt-eslint": "^20.1.0",
     "grunt-webpack": "^3.0.2",
-    "husky": "^0.14.3",
+    "husky": "^1.0.0",
     "istanbul-lib-instrument": "^1.9.1",
     "jest": "^22.0.4",
     "jest-cli": "^22.0.4",
