@@ -86,7 +86,7 @@ export function toUnderscoreCase(str) {
  */
 export function generateRandomString(len) {
   len = len || 7;
-  return (Math.random() * Math.pow(36,len)).toString(36).split('.')[0];
+  return Math.round((Math.pow(36, len + 1) - Math.random() * Math.pow(36, len))).toString(36).slice(1);
 }
 
 /**
