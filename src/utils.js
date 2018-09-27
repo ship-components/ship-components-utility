@@ -303,7 +303,7 @@ export function throttle(func, wait, options) {
       context = args = null;
     }
   };
-  return () => {
+  return function() {
     let now = Date.now();
     if (!previous && options.leading === false) {
       previous = now;
@@ -332,11 +332,11 @@ export function throttle(func, wait, options) {
  * Polyfill for finding document scrollTop.
  */
 export function getScrollTop() {
-  let scrollTop = pageYOffset;
-  if (typeof scrollTop === undefined) {
+  let scrollTop = window.pageYOffset;
+  if (typeof scrollTop === 'undefined') {
     scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
   }
-  if (typeof scrollTop === undefined) {
+  if (isNaN(scrollTop) || typeof scrollTop === 'undefined') {
     throw new Error('Unable to retrieve scrollTop. :(');
   }
   return scrollTop;

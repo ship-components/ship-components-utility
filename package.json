@@ -89,5 +89,8 @@
     "lint-staged": "^7.0.0",
     "strict-loader": "^1.1.0",
     "webpack": "^4.3.0"
+  },
+  "dependencies": {
+    "trevor": "^2.3.0"
   }
 }
