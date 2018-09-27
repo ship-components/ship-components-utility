@@ -50,6 +50,10 @@
     {
       "name": "Chris Orescan",
       "email": "chris.orescan@sony.com"
+    },
+    {
+      "name": "Jared Boone",
+      "email": "jared.boone@sony.com"
     }
   ],
   "jest": {
