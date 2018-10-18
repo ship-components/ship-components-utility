@@ -656,6 +656,8 @@ Below are is a sample of how to setup the loaders:
 2. `npm test`
 
 ## History
+* 2.0.0 - Updates Webpack to 4.21.0, Babel to 7 (monorepo). Fixes npm warnings & security vulnerabilities.
+* 2.0.0-beta.1 - Updates Webpack to 4.3.0 as well as eslint-loader, grunt-coveralls and lint-stages to latest.
 * 1.5.2 - Bugfix for getScrollTop and testing improvements
 * 1.5.1 - Adds functions throttle and getScrollTop to Utils.
 * 1.5.0 - Adds isEqualArray function to Utils to shallow compare 2 arrays.

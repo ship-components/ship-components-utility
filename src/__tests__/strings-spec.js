@@ -83,7 +83,7 @@ describe('Strings Library', () => {
 
     test('should return true when generated the correct string length', () => {
       let len1 = 5;
-      let len2 = 10;
+      let len2 = 9;
 
       let result1 = generateRandomString(len1);
       let result2 = generateRandomString(len2);

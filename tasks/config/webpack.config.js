@@ -12,7 +12,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       // ES6
       {
         test: /\.(js|es6)$/,
@@ -39,5 +39,6 @@ module.exports = {
     extensions: ['.js', '.es6']
   },
 
-  devtool: 'source-map'
+  devtool: 'source-map',
+  mode: 'development'
 };
