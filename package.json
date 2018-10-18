@@ -80,7 +80,6 @@
     "eslint-config-ship-components": "^1.5.1",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-react": "^7.5.1",
-    "extract-text-webpack-plugin": "^3.0.2",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^2.0.0",
@@ -93,7 +92,7 @@
     "jest-cli": "^23.6.0",
     "lint-staged": "^7.0.0",
     "strict-loader": "^1.1.0",
-    "webpack": "^4.3.0"
+    "webpack": "^4.21.0"
   },
   "dependencies": {
     "trevor": "^2.3.0"
