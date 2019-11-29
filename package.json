@@ -80,7 +80,7 @@
     "eslint": "^5.16.0",
     "eslint-config-ship-components": "^1.5.1",
     "eslint-loader": "^2.1.2",
-    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react": "^7.17.0",
     "grunt": "^1.0.4",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-clean": "^2.0.0",
