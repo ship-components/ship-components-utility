@@ -75,7 +75,7 @@
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.8.0",
     "babel-loader": "^8.0.4",
-    "babel-plugin-istanbul": "^5.0.1",
+    "babel-plugin-istanbul": "^6.0.0",
     "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
     "eslint-config-ship-components": "^1.5.1",
