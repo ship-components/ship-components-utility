@@ -3,9 +3,9 @@
  * @param  {String} prop
  * @return {Number}
  */
-const {isUndefined} = require('./utils');
+import { isUndefined } from './utils';
 
-function KeyEvents(prop) {
+export default function KeyEvents(prop) {
     // Browser detection
     let KeyEvent = !module ? window.KeyEvent : void 0;
 
@@ -131,5 +131,3 @@ function KeyEvents(prop) {
 
     return prop ? KeyEvent[prop] : KeyEvent;
 }
-
-module.exports = KeyEvents;

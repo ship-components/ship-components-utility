@@ -1,5 +1,5 @@
 /* global describe, test, expect */
-const pluck = require('../pluck').default;
+import pluck from '../pluck';
 
 describe('pluck', () => {
   test('it should return a new object with only the keys specified', () => {

@@ -1,8 +1,8 @@
 /* eslint-disable */
+import { compareDates, sortBy, sortByDates } from '../sort';
 
 describe('Sort Library', () => {
   describe('compareDates Method', () => {
-    const {compareDates} = require('../sort');
 
     test('should return true if 32bit integer generated', () => {
       let diff = 5;
@@ -16,8 +16,6 @@ describe('Sort Library', () => {
     });
   });
   describe('Sort Methods', () => {
-    const {sortBy, sortByDates} = require('../sort');
-
     test('should return true if sorted by dates correctly', () => {
       let arr1 = [{
         name: 'sample1',

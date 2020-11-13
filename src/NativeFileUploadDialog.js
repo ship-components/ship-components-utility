@@ -1,4 +1,4 @@
-const {isIEBrowser} = require('./utils');
+import {isIEBrowser} from './utils';
 
 /**
  * File upload dialog

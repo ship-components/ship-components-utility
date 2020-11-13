@@ -1,9 +1,24 @@
 /* eslint-disable */
+import {
+  bind,
+  bindAll,
+  deepCopy,
+  detectIEVersion,
+  getScrollTop,
+  isArray,
+  isEqualArray,
+  isFunction,
+  isIEBrowser,
+  isObject,
+  isString,
+  isUndefined,
+  mergeDeep,
+  objectSize,
+  throttle
+} from '../utils';
 
 describe('Utils Library', () => {
   describe('objectSize Method', () => {
-    const {objectSize} = require('../utils');
-
     test('should return true when correct object size calculated', () => {
       let obj = {
         1: '1',
@@ -22,7 +37,6 @@ describe('Utils Library', () => {
   });
 
   describe('Data Type Checking', () => {
-    const {isObject, isFunction, isString, isArray, isEqualArray, isUndefined} = require('../utils');
     let testObject;
     let testString;
     let testNumber;
@@ -138,8 +152,6 @@ describe('Utils Library', () => {
   });
 
   describe('bind & bindAll Methods', () => {
-    const {bind, bindAll} = require('../utils');
-
     test('should return true if function bind to itself', () => {
       function testFunc() { }
       let testObj = { testFunc };
@@ -170,8 +182,6 @@ describe('Utils Library', () => {
   });
 
   describe('mergeDeep Method', () => {
-    const {mergeDeep} = require('../utils');
-
     test('should return true if merge 2 objects properlly', () => {
       const testObj1 = {
         name1: 'Test',
@@ -201,7 +211,6 @@ describe('Utils Library', () => {
   });
 
   describe('deepCopy', function(){
-    const {deepCopy} = require('../utils');
     test('should export a function', function() {
       expect(typeof deepCopy).toBe('function');
     });
@@ -345,8 +354,6 @@ describe('Utils Library', () => {
   });
 
   describe('isIEBrowser Method', () => {
-    const {isIEBrowser} = require('../utils');
-
     test('should return true if IE10', () => {
       navigator.__defineGetter__('appVersion', function(){
         return 'MSIE 10' // customized appVersion
@@ -379,8 +386,6 @@ describe('Utils Library', () => {
   });
 
   describe('detectIEVersion Method', () => {
-    const {detectIEVersion} = require('../utils');
-
     test('should return true if IE10+ detected', () => {
       navigator.__defineGetter__('userAgent', function(){
         return 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)' // customized appVersion
@@ -419,7 +424,6 @@ describe('Utils Library', () => {
   });
 
   describe('throttling', () => {
-    const {throttle} = require('../utils');
     test('prevents function spamming', function(done) {
       const testFn = jest.fn()
       const throttleVal = 100;
@@ -445,7 +449,6 @@ describe('Utils Library', () => {
   })
 
   describe('getScrollTop', () => {
-    const {getScrollTop} = require('../utils');
     test('returns a number', () => {
       const retVal = getScrollTop();
       expect(retVal).toEqual(0);

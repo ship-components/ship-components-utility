@@ -1,8 +1,8 @@
 /* eslint-disable */
+import { any, find, findIndex, getIn, hasIn, isEqual, keys, searchFn, toArray } from '../collections';
+
 describe('Collections Library',  () => {
    describe('keys method', () => {
-      const {keys} = require('../collections');
-
       test('should return true if correct keys generated', () => {
          let obj = {
             name: 'test',
@@ -19,8 +19,6 @@ describe('Collections Library',  () => {
    });
 
    describe('toArray method', () => {
-      const {toArray} = require('../collections');
-
       test('should return true if correct values generated', () => {
          let obj = {
             name: 'test',
@@ -37,8 +35,6 @@ describe('Collections Library',  () => {
    });
 
    describe('searchFn method', () => {
-      const {searchFn} = require('../collections');
-
       test('should return true if func is found', () => {
          let obj = {
             func1: function() {},
@@ -57,8 +53,6 @@ describe('Collections Library',  () => {
    });
 
    describe('any method', () => {
-      const {any} = require('../collections');
-
       test('should return true if if any function works correctly', () => {
          let compare = function(a, b) {
             return a === b;
@@ -72,8 +66,6 @@ describe('Collections Library',  () => {
    });
 
    describe('find method', () => {
-      const {find} = require('../collections');
-
       test('should return true if match is found', () => {
          let compare = function(a) {
             return a === 20;
@@ -87,8 +79,6 @@ describe('Collections Library',  () => {
    });
 
    describe('findIndex method', () => {
-      const {findIndex} = require('../collections');
-
       test('should return true if ', () => {
          let compare = function(a) {
             return a === 30;
@@ -102,8 +92,6 @@ describe('Collections Library',  () => {
    });
 
    describe('getIn and hasIn methods', () => {
-      const {hasIn, getIn} = require('../collections');
-
       const testMap = {
          obj1: {
             name: 'test1',
@@ -173,7 +161,6 @@ describe('Collections Library',  () => {
    });
 
    describe('isEqual method', () => {
-      const {isEqual} = require('../collections');
       const testObj1 = {
          obj1: {
             name: 'test',

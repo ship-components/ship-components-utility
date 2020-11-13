@@ -4,7 +4,7 @@ const urlPattern = new RegExp('^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))
  * Breaks a URL into parts
  * @param {String} url
  */
-function parseUrl(url) {
+export default function parseUrl(url) {
   const matches = url.match(urlPattern);
   if (matches) {
     return {
@@ -18,5 +18,3 @@ function parseUrl(url) {
     return void 0;
   }
 }
-
-module.exports = parseUrl;

@@ -1,9 +1,8 @@
 /* eslint-disable */
+import { camelCase, capitalize, convertHTMLToString, generateRandomString, hash, slugify, stringShortener, titleCase, toUnderscoreCase } from '../strings';
 
 describe('Strings Library', () => {
   describe('hash Method', () => {
-    const {hash} = require('../strings');
-
     test('should return true if 32bit integer generated', () => {
       let str = 'this is a sample string';
       let result = hash(str);
@@ -18,8 +17,6 @@ describe('Strings Library', () => {
   });
 
   describe('slugify Method', () => {
-    const {slugify} = require('../strings');
-
     test('should return true when slugify method converts correctly', () => {
       let str1 = 'THis Is A!   sample--string';
       let str2 = 'this-is-a---sample--string';
@@ -31,8 +28,6 @@ describe('Strings Library', () => {
   });
 
   describe('String format Methods', () => {
-    const {capitalize, titleCase, camelCase, toUnderscoreCase} = require('../strings');
-
     test('should return true when capitalize method converts correctly', () => {
       let str1 = 'test test';
       let matchStr = 'Test test';
@@ -79,8 +74,6 @@ describe('Strings Library', () => {
   });
 
   describe('generateRandomString Method', () => {
-    const {generateRandomString} = require('../strings');
-
     test('should return true when generated the correct string length', () => {
       let len1 = 5;
       let len2 = 9;
@@ -97,8 +90,6 @@ describe('Strings Library', () => {
   });
 
   describe('stringShortener Method', () => {
-    const {stringShortener} = require('../strings');
-
     test('should return true when shorten the string correctly', () => {
       let str = 'this is a sample text for testing';
       let charCount = 10;
@@ -112,8 +103,6 @@ describe('Strings Library', () => {
   });
 
   describe('convertHTMLToString Method', () => {
-    const {convertHTMLToString} = require('../strings');
-
     test('should return the value if not type of string', () => {
       let num = 1;
       let result = convertHTMLToString(num);

@@ -1,10 +1,9 @@
 /* eslint-disable */
+import KeyEvents from '../KeyEvents';
+import { objectSize } from '../utils';
 
 describe('KeyEvents Library', () => {
    test('should return true if return the key event number correctly', () => {
-      const KeyEvents = require('../KeyEvents');
-      const {objectSize} = require('../utils');
-
       let event1 = 'DOM_VK_PAGE_DOWN';
       let eventNum1 = 34;
 
